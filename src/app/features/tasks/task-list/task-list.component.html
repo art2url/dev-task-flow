@@ -1,1 +1,10 @@
-<p>task-list works!</p>
+<h2>Task List</h2>
+
+<app-task-form (taskAdded)="taskService.addTask($event)"></app-task-form>
+
+<ul>
+  <li *ngFor="let task of tasks">
+    <strong>{{ task.title }}</strong> - {{ task.createdAt | date : "short" }}
+    <button (click)="deleteTask(task.id)">Delete</button>
+  </li>
+</ul>
