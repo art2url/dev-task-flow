@@ -7,10 +7,16 @@
 >
 </app-task-form>
 
-<ul>
+<button (click)="clearAll()">Clear All Tasks</button>
+
+<ul *ngIf="tasks.length > 0; else noTasks">
   <li *ngFor="let task of tasks">
     <strong>{{ task.title }}</strong> - {{ task.createdAt | date : "short" }}
     <button (click)="startEdit(task)">Edit</button>
     <button (click)="deleteTask(task.id)">Delete</button>
   </li>
 </ul>
+
+<ng-template #noTasks>
+  <p>No tasks available.</p>
+</ng-template>

@@ -39,4 +39,10 @@ export class TaskListComponent implements OnInit {
   deleteTask(taskId: number): void {
     this.taskService.deleteTask(taskId);
   }
+
+  clearAll(): void {
+    if (confirm('Are you sure you want to delete all tasks?')) {
+      this.taskService.clearAllTasks();
+    }
+  }
 }
