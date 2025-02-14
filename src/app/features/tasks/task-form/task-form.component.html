@@ -1,2 +1,5 @@
-<input [(ngModel)]="title" placeholder="New Task Title" />
-<button (click)="addTask()">Add Task</button>
+<input [(ngModel)]="title" placeholder="Task Title" />
+<button (click)="saveTask()">
+  {{ taskToEdit ? "Update Task" : "Add Task" }}
+</button>
+<button *ngIf="taskToEdit" (click)="resetForm()">Cancel</button>

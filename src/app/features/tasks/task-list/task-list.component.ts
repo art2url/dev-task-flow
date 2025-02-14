@@ -13,6 +13,7 @@ import { TaskFormComponent } from '../task-form/task-form.component';
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
+  taskToEdit: Task | null = null;
 
   constructor(public taskService: TaskService) {}
 
@@ -20,6 +21,19 @@ export class TaskListComponent implements OnInit {
     this.taskService.tasks$.subscribe((tasks) => {
       this.tasks = tasks;
     });
+  }
+
+  startEdit(task: Task): void {
+    this.taskToEdit = { ...task }; // Pass a copy to avoid live binding issues
+  }
+
+  handleTaskAdded(task: Task): void {
+    this.taskService.addTask(task);
+  }
+
+  handleTaskUpdated(task: Task): void {
+    this.taskService.updateTask(task);
+    this.taskToEdit = null;
   }
 
   deleteTask(taskId: number): void {
