@@ -4,10 +4,21 @@ import { TaskService } from '../task.service';
 import { Task } from '../models/task.model';
 import { TaskFormComponent } from '../task-form/task-form.component';
 
+// Material Imports
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, TaskFormComponent],
+  imports: [
+    CommonModule,
+    TaskFormComponent,
+    MatToolbarModule,
+    MatButtonModule,
+    MatCardModule,
+  ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
 })
@@ -24,7 +35,7 @@ export class TaskListComponent implements OnInit {
   }
 
   startEdit(task: Task): void {
-    this.taskToEdit = { ...task }; // Pass a copy to avoid live binding issues
+    this.taskToEdit = { ...task };
   }
 
   handleTaskAdded(task: Task): void {

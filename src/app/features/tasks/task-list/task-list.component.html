@@ -1,4 +1,8 @@
-<h2>Task List</h2>
+<mat-toolbar color="primary">
+  <span>DevTaskFlow - Task Manager</span>
+  <span class="spacer"></span>
+  <button mat-button color="warn" (click)="clearAll()">Clear All</button>
+</mat-toolbar>
 
 <app-task-form
   [taskToEdit]="taskToEdit"
@@ -7,16 +11,19 @@
 >
 </app-task-form>
 
-<button (click)="clearAll()">Clear All Tasks</button>
-
-<ul *ngIf="tasks.length > 0; else noTasks">
-  <li *ngFor="let task of tasks">
-    <strong>{{ task.title }}</strong> - {{ task.createdAt | date : "short" }}
-    <button (click)="startEdit(task)">Edit</button>
-    <button (click)="deleteTask(task.id)">Delete</button>
-  </li>
-</ul>
+<div class="task-list">
+  <mat-card *ngFor="let task of tasks" class="task-card">
+    <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
+    <mat-card-subtitle>{{ task.createdAt | date : "short" }}</mat-card-subtitle>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="startEdit(task)">Edit</button>
+      <button mat-button color="warn" (click)="deleteTask(task.id)">
+        Delete
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
 
 <ng-template #noTasks>
-  <p>No tasks available.</p>
+  <p class="no-tasks">No tasks available.</p>
 </ng-template>

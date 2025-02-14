@@ -1,5 +1,17 @@
-<input [(ngModel)]="title" placeholder="Task Title" />
-<button (click)="saveTask()">
-  {{ taskToEdit ? "Update Task" : "Add Task" }}
-</button>
-<button *ngIf="taskToEdit" (click)="resetForm()">Cancel</button>
+<mat-card class="task-form-card">
+  <mat-card-content>
+    <mat-form-field appearance="outline" class="task-input">
+      <mat-label>Task Title</mat-label>
+      <input matInput [(ngModel)]="title" placeholder="Enter task title" />
+    </mat-form-field>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-raised-button color="primary" (click)="saveTask()">
+      {{ taskToEdit ? "Update Task" : "Add Task" }}
+    </button>
+    <button *ngIf="taskToEdit" mat-button color="warn" (click)="resetForm()">
+      Cancel
+    </button>
+  </mat-card-actions>
+</mat-card>
