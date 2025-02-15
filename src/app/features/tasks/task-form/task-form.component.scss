@@ -1,10 +1,14 @@
 .task-form-card {
-  background-color: var(--background-color);
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
+  background-color: var(--mat-sys-primary);
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
   margin-bottom: 20px;
+  border-radius: 0;
 }
 
 .task-input {
   width: 100%;
+}
+
+.task-buttons {
+  padding: 16px;
 }

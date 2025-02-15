@@ -45,11 +45,15 @@
     <mat-card-title class="task-title">
       {{ task.title }}
     </mat-card-title>
+
     <mat-card-subtitle class="task-subtitle">{{
       task.createdAt | date : "short"
     }}</mat-card-subtitle>
-    <mat-divider></mat-divider>
-    <mat-card-actions>
+
+    <mat-card-content>{{ task.description }}</mat-card-content>
+
+    <mat-divider class="divider"></mat-divider>
+    <mat-card-actions class="task-handler">
       <mat-checkbox
         [checked]="task.completed"
         (change)="toggleTaskCompletion(task)"

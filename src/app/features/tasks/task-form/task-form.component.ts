@@ -36,36 +36,36 @@ export class TaskFormComponent implements OnChanges {
   @Output() taskUpdated = new EventEmitter<Task>();
 
   title = '';
+  description = '';
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['taskToEdit'] && this.taskToEdit) {
       this.title = this.taskToEdit.title;
+      this.description = this.taskToEdit.description || ''; // Load description if available
     }
   }
 
   saveTask() {
     if (!this.title.trim()) return;
 
-    if (this.taskToEdit) {
-      this.taskUpdated.emit({
-        ...this.taskToEdit,
-        title: this.title,
-      });
-    } else {
-      const newTask: Task = {
-        id: Date.now(),
-        title: this.title,
-        completed: false,
-        createdAt: new Date(),
-      };
-      this.taskAdded.emit(newTask);
-    }
+    const updatedTask: Task = {
+      id: this.taskToEdit ? this.taskToEdit.id : Date.now(),
+      title: this.title,
+      description: this.description, // Include updated description
+      completed: this.taskToEdit ? this.taskToEdit.completed : false,
+      createdAt: this.taskToEdit ? this.taskToEdit.createdAt : new Date(),
+    };
+
+    this.taskToEdit
+      ? this.taskUpdated.emit(updatedTask)
+      : this.taskAdded.emit(updatedTask);
 
     this.resetForm();
   }
 
   resetForm() {
     this.title = '';
+    this.description = ''; // Clear description
     this.taskToEdit = null;
   }
 }

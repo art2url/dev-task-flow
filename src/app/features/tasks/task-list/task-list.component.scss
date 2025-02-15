@@ -1,6 +1,19 @@
 mat-progress-bar {
-  margin: 4px 0;
+  margin-bottom: 4px;
 }
+
+mat-card-content {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #889392;
+  line-height: 1.4;
+  padding: 8px;
+  white-space: pre-line; // Keeps line breaks
+}
+
+// mat-card-actions {
+//   white-space: pre-line; // Keeps line breaks
+// }
 
 .spacer {
   flex: 1 1 auto;
@@ -23,14 +36,6 @@ mat-progress-bar {
   padding: 16px;
 }
 
-.task-card {
-  padding: 16px;
-  transition: 0.3s;
-  &:hover {
-    box-shadow: 0px 16px 16px rgba(0, 0, 0, 0.5);
-  }
-}
-
 .no-tasks {
   text-align: center;
   font-size: 18px;
@@ -47,4 +52,21 @@ mat-progress-bar {
 
 .control-item {
   min-width: 200px;
+}
+
+.task-handler {
+  padding: 0;
+  margin-top: 8px;
+}
+
+.divider {
+  margin-top: 10px;
+}
+
+.task-card {
+  padding: 16px;
+  transition: 0.3s;
+  &:hover {
+    box-shadow: 0px 16px 16px rgba(0, 0, 0, 0.5);
+  }
 }
