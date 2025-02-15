@@ -4,6 +4,8 @@
   <button mat-button color="warn" (click)="clearAll()">Clear All</button>
 </mat-toolbar>
 
+<mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+
 <app-task-form
   [taskToEdit]="taskToEdit"
   (taskAdded)="handleTaskAdded($event)"

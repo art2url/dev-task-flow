@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-task-list',
@@ -24,6 +25,7 @@ import { MatOptionModule } from '@angular/material/core';
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
+    MatProgressBarModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -34,6 +36,7 @@ export class TaskListComponent implements OnInit {
   filterStatus: string = 'all';
   sortOrder: string = 'newest';
   filteredTasks: Task[] = [];
+  progress: number = 0;
 
   constructor(public taskService: TaskService) {}
 
@@ -41,7 +44,14 @@ export class TaskListComponent implements OnInit {
     this.taskService.tasks$.subscribe((tasks) => {
       this.tasks = tasks;
       this.applyFilter();
+      this.calculateProgress();
     });
+  }
+
+  calculateProgress(): void {
+    const totalTasks = this.tasks.length;
+    const completedTasks = this.tasks.filter((task) => task.completed).length;
+    this.progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
   }
 
   applyFilter(): void {
