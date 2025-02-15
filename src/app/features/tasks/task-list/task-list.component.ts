@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TaskService } from '../task.service';
 import { Task } from '../models/task.model';
 import { TaskFormComponent } from '../task-form/task-form.component';
+import { FormsModule } from '@angular/forms';
 
 // Material Imports
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -12,12 +13,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     TaskFormComponent,
     MatToolbarModule,
     MatButtonModule,
@@ -26,6 +30,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatSelectModule,
     MatOptionModule,
     MatProgressBarModule,
+    MatCheckboxModule,
+    MatDividerModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -86,6 +92,14 @@ export class TaskListComponent implements OnInit {
 
   deleteTask(taskId: number): void {
     this.taskService.deleteTask(taskId);
+  }
+
+  toggleTaskCompletion(task: Task): void {
+    const updatedTask = { ...task, completed: !task.completed };
+    this.taskService.updateTask(updatedTask);
+
+    this.calculateProgress();
+    this.applyFilter();
   }
 
   clearAll(): void {

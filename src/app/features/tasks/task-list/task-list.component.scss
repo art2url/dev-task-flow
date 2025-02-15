@@ -1,5 +1,5 @@
 mat-progress-bar {
-  margin: 8px 0;
+  margin: 4px 0;
 }
 
 .spacer {
@@ -8,12 +8,17 @@ mat-progress-bar {
 
 .task-title {
   color: cyan;
+  padding: 8px;
+}
+
+.task-subtitle {
+  padding: 8px;
 }
 
 .task-list {
   align-self: center;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
   gap: 16px;
   padding: 16px;
 }

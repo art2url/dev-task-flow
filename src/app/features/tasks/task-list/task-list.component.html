@@ -42,9 +42,20 @@
 
 <div class="task-list" *ngIf="tasks.length > 0; else noTasks">
   <mat-card *ngFor="let task of filteredTasks" class="task-card">
-    <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
-    <mat-card-subtitle>{{ task.createdAt | date : "short" }}</mat-card-subtitle>
+    <mat-card-title class="task-title">
+      {{ task.title }}
+    </mat-card-title>
+    <mat-card-subtitle class="task-subtitle">{{
+      task.createdAt | date : "short"
+    }}</mat-card-subtitle>
+    <mat-divider></mat-divider>
     <mat-card-actions>
+      <mat-checkbox
+        [checked]="task.completed"
+        (change)="toggleTaskCompletion(task)"
+        >Completed
+      </mat-checkbox>
+      <span class="spacer"></span>
       <button mat-button color="primary" (click)="startEdit(task)">Edit</button>
       <button mat-button color="warn" (click)="deleteTask(task.id)">
         Delete
