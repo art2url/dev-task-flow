@@ -11,8 +11,35 @@
 >
 </app-task-form>
 
-<div class="task-list">
-  <mat-card *ngFor="let task of tasks" class="task-card">
+<div class="controls">
+  <mat-form-field
+    appearance="outline"
+    *ngIf="tasks.length > 0; else null"
+    class="control-item"
+  >
+    <mat-label>Filter Tasks</mat-label>
+    <mat-select [(value)]="filterStatus" (selectionChange)="applyFilter()">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="completed">Completed</mat-option>
+      <mat-option value="incomplete">Incomplete</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    *ngIf="tasks.length > 1; else null"
+    class="control-item"
+  >
+    <mat-label>Sort By</mat-label>
+    <mat-select [(value)]="sortOrder" (selectionChange)="applySort()">
+      <mat-option value="newest">Newest First</mat-option>
+      <mat-option value="oldest">Oldest First</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<div class="task-list" *ngIf="tasks.length > 0; else noTasks">
+  <mat-card *ngFor="let task of filteredTasks" class="task-card">
     <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
     <mat-card-subtitle>{{ task.createdAt | date : "short" }}</mat-card-subtitle>
     <mat-card-actions>

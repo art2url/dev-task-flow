@@ -7,6 +7,7 @@
 }
 
 .task-list {
+  align-self: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 16px;
@@ -26,4 +27,15 @@
   font-size: 18px;
   color: gray;
   margin-top: 20px;
+}
+
+.controls {
+  display: flex;
+  padding: 16px;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.control-item {
+  min-width: 200px;
 }
