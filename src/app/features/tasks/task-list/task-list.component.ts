@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../task.service';
 import { Task } from '../models/task.model';
@@ -36,7 +36,7 @@ import { MatDividerModule } from '@angular/material/divider';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent implements OnInit, AfterViewInit {
   tasks: Task[] = [];
   taskToEdit: Task | null = null;
   filterStatus: string = 'all';
@@ -52,6 +52,10 @@ export class TaskListComponent implements OnInit {
       this.applyFilter();
       this.calculateProgress();
     });
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.calculateProgress(), 0); // Runs after view loads
   }
 
   calculateProgress(): void {
