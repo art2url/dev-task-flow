@@ -1,39 +1,38 @@
+@use "sass:math";
+@import "variables";
+
 mat-progress-bar {
-  margin-bottom: 4px;
+  margin-bottom: math.div($spacing, 4);
 }
 
 mat-card-content {
-  margin-top: 8px;
+  margin-top: math.div($spacing, 2);
   font-size: 14px;
-  color: #889392;
+  color: $text-color;
   line-height: 1.4;
-  padding: 8px;
-  white-space: pre-line; // Keeps line breaks
+  padding: math.div($spacing, 2);
+  white-space: pre-line;
 }
-
-// mat-card-actions {
-//   white-space: pre-line; // Keeps line breaks
-// }
 
 .spacer {
   flex: 1 1 auto;
 }
 
 .task-title {
-  color: cyan;
-  padding: 8px;
+  color: $primary-color;
+  padding: math.div($spacing, 2);
+  font-weight: 600;
 }
 
 .task-subtitle {
-  padding: 8px;
+  padding: math.div($spacing, 2);
 }
 
 .task-list {
-  align-self: center;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-  gap: 16px;
-  padding: 16px;
+  gap: $spacing;
+  padding: $spacing;
 }
 
 .no-tasks {
@@ -45,9 +44,9 @@ mat-card-content {
 
 .controls {
   display: flex;
-  padding: 16px;
-  gap: 16px;
-  margin-top: 30px;
+  padding: $spacing;
+  gap: $spacing;
+  margin-top: math.div($spacing, 2) * 2;
 }
 
 .control-item {
@@ -56,17 +55,19 @@ mat-card-content {
 
 .task-handler {
   padding: 0;
-  margin-top: 8px;
+  margin-top: math.div($spacing, 2);
 }
 
 .divider {
-  margin-top: 10px;
+  margin-top: math.div($spacing, 2);
 }
 
 .task-card {
-  padding: 16px;
-  transition: 0.3s;
+  padding: $spacing;
+  transition: box-shadow 0.3s;
+  box-shadow: $card-shadow;
+
   &:hover {
-    box-shadow: 0px 16px 16px rgba(0, 0, 0, 0.5);
+    box-shadow: $card-hover-shadow;
   }
 }

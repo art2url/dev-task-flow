@@ -1,14 +1,22 @@
+@use "sass:math";
+@import "variables";
+
 .task-form-card {
   background-color: var(--mat-sys-primary);
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
+  box-shadow: $card-shadow;
   margin-bottom: 20px;
-  border-radius: 0;
+  border-radius: 8px;
+  padding: $spacing;
 }
 
 .task-input {
   width: 100%;
+  margin-bottom: math.div($spacing, 2);
 }
 
 .task-buttons {
-  padding: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: math.div($spacing, 2);
+  padding: math.div($spacing, 2);
 }
