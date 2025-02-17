@@ -1,6 +1,32 @@
 @use "sass:math";
 @import "variables";
 
+$priority-colors: (
+  "Low": green,
+  "Medium": orange,
+  "High": red,
+);
+
+.task-form-card {
+  background-color: var(--mat-sys-primary);
+  box-shadow: $card-shadow;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  padding: $spacing;
+}
+
+.task-input {
+  width: 100%;
+  margin-bottom: math.div($spacing, 2);
+}
+
+.task-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: math.div($spacing, 2);
+  padding: math.div($spacing, 2);
+}
+
 mat-progress-bar {
   margin-bottom: math.div($spacing, 4);
 }
@@ -69,5 +95,17 @@ mat-card-content {
 
   &:hover {
     box-shadow: $card-hover-shadow;
+  }
+
+  &.priority-Low {
+    border-left: 5px solid green;
+  }
+
+  &.priority-Medium {
+    border-left: 5px solid orange;
+  }
+
+  &.priority-High {
+    border-left: 5px solid red;
   }
 }

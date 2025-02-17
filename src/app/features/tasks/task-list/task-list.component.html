@@ -41,14 +41,18 @@
 </div>
 
 <div class="task-list" *ngIf="tasks.length > 0; else noTasks">
-  <mat-card *ngFor="let task of filteredTasks" class="task-card">
+  <mat-card
+    *ngFor="let task of filteredTasks"
+    class="task-card priority-{{ task.priority }}"
+  >
     <mat-card-title class="task-title">
       {{ task.title }}
     </mat-card-title>
 
-    <mat-card-subtitle class="task-subtitle">{{
-      task.createdAt | date : "short"
-    }}</mat-card-subtitle>
+    <mat-card-subtitle class="task-subtitle"
+      >{{ task.createdAt | date : "short" }} | Priority:
+      {{ task.priority }}</mat-card-subtitle
+    >
 
     <mat-card-content>{{ task.description }}</mat-card-content>
 

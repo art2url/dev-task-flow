@@ -15,6 +15,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-task-form',
@@ -26,6 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatOptionModule,
+    MatSelectModule,
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
@@ -37,6 +41,7 @@ export class TaskFormComponent implements OnChanges {
 
   title = '';
   description = '';
+  priority: 'Low' | 'Medium' | 'High' = 'Medium';
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['taskToEdit'] && this.taskToEdit) {
@@ -54,6 +59,7 @@ export class TaskFormComponent implements OnChanges {
       description: this.description, // Include updated description
       completed: this.taskToEdit ? this.taskToEdit.completed : false,
       createdAt: this.taskToEdit ? this.taskToEdit.createdAt : new Date(),
+      priority: this.priority,
     };
 
     this.taskToEdit

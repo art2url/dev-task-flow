@@ -9,6 +9,12 @@
   padding: $spacing;
 }
 
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: math.div($spacing, 2);
+}
+
 .task-input {
   width: 100%;
   margin-bottom: math.div($spacing, 2);
