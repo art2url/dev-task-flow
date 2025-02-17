@@ -40,7 +40,8 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   tasks: Task[] = [];
   taskToEdit: Task | null = null;
   filterStatus: string = 'all';
-  sortOrder: string = 'newest';
+  dateSortOrder: string = 'newest';
+  prioritySortOrder: string = 'priority-high';
   filteredTasks: Task[] = [];
   progress: number = 0;
 
@@ -55,7 +56,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.calculateProgress(), 0); // Runs after view loads
+    setTimeout(() => this.calculateProgress(), 0);
   }
 
   calculateProgress(): void {
@@ -70,14 +71,24 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       if (this.filterStatus === 'incomplete') return !task.completed;
       return true;
     });
-    this.applySort();
+    this.applyDateSort();
+    this.applyPrioritySort();
   }
 
-  applySort(): void {
-    this.filteredTasks = this.filteredTasks.sort((a, b) => {
-      return this.sortOrder === 'newest'
+  applyDateSort(): void {
+    this.filteredTasks.sort((a, b) => {
+      return this.dateSortOrder === 'newest'
         ? b.createdAt.getTime() - a.createdAt.getTime()
         : a.createdAt.getTime() - b.createdAt.getTime();
+    });
+  }
+
+  applyPrioritySort(): void {
+    const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+    this.filteredTasks.sort((a, b) => {
+      return this.prioritySortOrder === 'priority-high'
+        ? priorityOrder[a.priority] - priorityOrder[b.priority]
+        : priorityOrder[b.priority] - priorityOrder[a.priority];
     });
   }
 
@@ -101,7 +112,6 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   toggleTaskCompletion(task: Task): void {
     const updatedTask = { ...task, completed: !task.completed };
     this.taskService.updateTask(updatedTask);
-
     this.calculateProgress();
     this.applyFilter();
   }

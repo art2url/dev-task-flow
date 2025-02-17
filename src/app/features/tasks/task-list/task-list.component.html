@@ -10,8 +10,7 @@
   [taskToEdit]="taskToEdit"
   (taskAdded)="handleTaskAdded($event)"
   (taskUpdated)="handleTaskUpdated($event)"
->
-</app-task-form>
+></app-task-form>
 
 <div class="controls">
   <mat-form-field
@@ -20,7 +19,7 @@
     class="control-item"
   >
     <mat-label>Filter Tasks</mat-label>
-    <mat-select [(value)]="filterStatus" (selectionChange)="applyFilter()">
+    <mat-select [(ngModel)]="filterStatus" (selectionChange)="applyFilter()">
       <mat-option value="all">All</mat-option>
       <mat-option value="completed">Completed</mat-option>
       <mat-option value="incomplete">Incomplete</mat-option>
@@ -32,37 +31,47 @@
     *ngIf="tasks.length > 1; else null"
     class="control-item"
   >
-    <mat-label>Sort By</mat-label>
-    <mat-select [(value)]="sortOrder" (selectionChange)="applySort()">
+    <mat-label>Sort by Date</mat-label>
+    <mat-select [(ngModel)]="dateSortOrder" (selectionChange)="applyDateSort()">
       <mat-option value="newest">Newest First</mat-option>
       <mat-option value="oldest">Oldest First</mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    *ngIf="tasks.length > 1; else null"
+    class="control-item"
+  >
+    <mat-label>Sort by Priority</mat-label>
+    <mat-select
+      [(ngModel)]="prioritySortOrder"
+      (selectionChange)="applyPrioritySort()"
+    >
+      <mat-option value="priority-high">Priority: High to Low</mat-option>
+      <mat-option value="priority-low">Priority: Low to High</mat-option>
+    </mat-select>
+  </mat-form-field>
 </div>
 
-<div class="task-list" *ngIf="tasks.length > 0; else noTasks">
+<div class="task-list" *ngIf="filteredTasks.length > 0; else noTasks">
   <mat-card
     *ngFor="let task of filteredTasks"
     class="task-card priority-{{ task.priority }}"
   >
-    <mat-card-title class="task-title">
-      {{ task.title }}
-    </mat-card-title>
-
+    <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
     <mat-card-subtitle class="task-subtitle"
       >{{ task.createdAt | date : "short" }} | Priority:
       {{ task.priority }}</mat-card-subtitle
     >
-
     <mat-card-content>{{ task.description }}</mat-card-content>
-
     <mat-divider class="divider"></mat-divider>
     <mat-card-actions class="task-handler">
       <mat-checkbox
         [checked]="task.completed"
         (change)="toggleTaskCompletion(task)"
-        >Completed
-      </mat-checkbox>
+        >Completed</mat-checkbox
+      >
       <span class="spacer"></span>
       <button mat-button color="primary" (click)="startEdit(task)">Edit</button>
       <button mat-button color="warn" (click)="deleteTask(task.id)">
