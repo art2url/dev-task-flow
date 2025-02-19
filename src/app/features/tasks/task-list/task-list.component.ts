@@ -77,9 +77,10 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
   applyDateSort(): void {
     this.filteredTasks.sort((a, b) => {
-      return this.dateSortOrder === 'newest'
-        ? b.createdAt.getTime() - a.createdAt.getTime()
-        : a.createdAt.getTime() - b.createdAt.getTime();
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+
+      return this.dateSortOrder === 'newest' ? dateB - dateA : dateA - dateB;
     });
   }
 
@@ -97,6 +98,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   handleTaskAdded(task: Task): void {
+    task.createdAt = new Date(task.createdAt);
     this.taskService.addTask(task);
   }
 
