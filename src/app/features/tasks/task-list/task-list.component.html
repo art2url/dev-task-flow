@@ -33,6 +33,7 @@
   >
     <mat-label>Sort by Date</mat-label>
     <mat-select [(ngModel)]="dateSortOrder" (selectionChange)="applyDateSort()">
+      <mat-option value="unsorted">Unsorted</mat-option>
       <mat-option value="newest">Newest First</mat-option>
       <mat-option value="oldest">Oldest First</mat-option>
     </mat-select>
@@ -80,6 +81,15 @@
     </mat-card-actions>
   </mat-card>
 </div>
+
+<mat-paginator
+  [length]="filteredTasksOriginal.length"
+  [pageSize]="pageSize"
+  [pageIndex]="pageIndex"
+  [pageSizeOptions]="[5, 10, 20]"
+  (page)="onPageChange($event)"
+>
+</mat-paginator>
 
 <ng-template #noTasks>
   <p class="no-tasks">No tasks available.</p>

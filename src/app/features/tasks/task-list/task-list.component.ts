@@ -15,6 +15,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-task-list',
@@ -32,24 +33,31 @@ import { MatDividerModule } from '@angular/material/divider';
     MatProgressBarModule,
     MatCheckboxModule,
     MatDividerModule,
+    MatPaginatorModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
 })
 export class TaskListComponent implements OnInit, AfterViewInit {
   tasks: Task[] = [];
+  filteredTasks: Task[] = [];
+  filteredTasksOriginal: Task[] = [];
   taskToEdit: Task | null = null;
   filterStatus: string = 'all';
   dateSortOrder: string = 'newest';
   prioritySortOrder: string = 'priority-high';
-  filteredTasks: Task[] = [];
   progress: number = 0;
+  pageIndex: number = 0;
+  pageSize: number = 5;
 
   constructor(public taskService: TaskService) {}
 
   ngOnInit(): void {
     this.taskService.tasks$.subscribe((tasks) => {
-      this.tasks = tasks;
+      this.tasks = tasks.map((task) => ({
+        ...task,
+        createdAt: new Date(task.createdAt),
+      }));
       this.applyFilter();
       this.calculateProgress();
     });
@@ -66,31 +74,40 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   applyFilter(): void {
-    this.filteredTasks = this.tasks.filter((task) => {
+    this.pageIndex = 0;
+    this.filteredTasksOriginal = this.tasks.filter((task) => {
       if (this.filterStatus === 'completed') return task.completed;
       if (this.filterStatus === 'incomplete') return !task.completed;
       return true;
     });
-    this.applyDateSort();
     this.applyPrioritySort();
+    this.applyDateSort();
+    this.updatePaginatedTasks();
   }
 
   applyDateSort(): void {
-    this.filteredTasks.sort((a, b) => {
-      const dateA = new Date(a.createdAt).getTime();
-      const dateB = new Date(b.createdAt).getTime();
-
-      return this.dateSortOrder === 'newest' ? dateB - dateA : dateA - dateB;
-    });
+    if (this.dateSortOrder === 'newest') {
+      this.filteredTasksOriginal.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+    } else if (this.dateSortOrder === 'oldest') {
+      this.filteredTasksOriginal.sort(
+        (a, b) =>
+          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      );
+    }
+    this.updatePaginatedTasks();
   }
 
   applyPrioritySort(): void {
     const priorityOrder = { High: 1, Medium: 2, Low: 3 };
-    this.filteredTasks.sort((a, b) => {
+    this.filteredTasksOriginal.sort((a, b) => {
       return this.prioritySortOrder === 'priority-high'
         ? priorityOrder[a.priority] - priorityOrder[b.priority]
         : priorityOrder[b.priority] - priorityOrder[a.priority];
     });
+    this.updatePaginatedTasks();
   }
 
   startEdit(task: Task): void {
@@ -122,5 +139,17 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     if (confirm('Are you sure you want to delete all tasks?')) {
       this.taskService.clearAllTasks();
     }
+  }
+
+  onPageChange(event: any): void {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.updatePaginatedTasks();
+  }
+
+  updatePaginatedTasks(): void {
+    const startIndex = this.pageIndex * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.filteredTasks = this.filteredTasksOriginal.slice(startIndex, endIndex);
   }
 }

@@ -1,11 +1,25 @@
 @use "sass:math";
 @import "variables";
 
-$priority-colors: (
-  "Low": green,
-  "Medium": orange,
-  "High": red,
-);
+mat-progress-bar {
+  margin-bottom: math.div($spacing, 4);
+}
+
+mat-card-content {
+  margin-top: math.div($spacing, 2);
+  font-size: 14px;
+  color: $text-color;
+  line-height: 1.4;
+  padding: math.div($spacing, 2);
+  white-space: pre-line;
+}
+
+mat-paginator {
+  margin-top: 16px;
+  display: flex;
+  justify-content: left;
+  padding: math.div($spacing, 2);
+}
 
 .task-form-card {
   background-color: var(--mat-sys-primary);
@@ -25,19 +39,6 @@ $priority-colors: (
   justify-content: flex-end;
   gap: math.div($spacing, 2);
   padding: math.div($spacing, 2);
-}
-
-mat-progress-bar {
-  margin-bottom: math.div($spacing, 4);
-}
-
-mat-card-content {
-  margin-top: math.div($spacing, 2);
-  font-size: 14px;
-  color: $text-color;
-  line-height: 1.4;
-  padding: math.div($spacing, 2);
-  white-space: pre-line;
 }
 
 .spacer {
