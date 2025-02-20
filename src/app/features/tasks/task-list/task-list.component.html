@@ -13,6 +13,16 @@
 ></app-task-form>
 
 <div class="controls">
+  <mat-form-field appearance="outline" class="control-item search-field">
+    <mat-label>Search Tasks</mat-label>
+    <input
+      matInput
+      [(ngModel)]="searchQuery"
+      (input)="applyFilter()"
+      placeholder="Search by title or description"
+    />
+  </mat-form-field>
+
   <mat-form-field
     appearance="outline"
     *ngIf="tasks.length > 0; else null"

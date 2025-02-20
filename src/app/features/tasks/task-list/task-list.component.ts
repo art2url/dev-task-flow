@@ -16,6 +16,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-task-list',
@@ -34,6 +35,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatCheckboxModule,
     MatDividerModule,
     MatPaginatorModule,
+    MatInputModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -43,6 +45,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   filteredTasks: Task[] = [];
   filteredTasksOriginal: Task[] = [];
   taskToEdit: Task | null = null;
+  searchQuery: string = '';
   filterStatus: string = 'all';
   dateSortOrder: string = 'newest';
   prioritySortOrder: string = 'priority-high';
@@ -76,9 +79,20 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   applyFilter(): void {
     this.pageIndex = 0;
     this.filteredTasksOriginal = this.tasks.filter((task) => {
-      if (this.filterStatus === 'completed') return task.completed;
-      if (this.filterStatus === 'incomplete') return !task.completed;
-      return true;
+      const matchesStatus =
+        this.filterStatus === 'all' ||
+        (this.filterStatus === 'completed' && task.completed) ||
+        (this.filterStatus === 'incomplete' && !task.completed);
+
+      const matchesSearch = this.searchQuery
+        ? task.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+          (task.description &&
+            task.description
+              .toLowerCase()
+              .includes(this.searchQuery.toLowerCase()))
+        : true;
+
+      return matchesStatus && matchesSearch;
     });
     this.applyPrioritySort();
     this.applyDateSort();
