@@ -186,14 +186,14 @@ mat-paginator {
   }
 
   &.priority-Low {
-    border-left: 5px solid green;
+    border-left: 5px solid #4d8b31;
   }
 
   &.priority-Medium {
-    border-left: 5px solid orange;
+    border-left: 5px solid #ffc857;
   }
 
   &.priority-High {
-    border-left: 5px solid red;
+    border-left: 5px solid #f15152;
   }
 }
