@@ -1,7 +1,9 @@
 <mat-toolbar color="primary">
   <span>DevTaskFlow - Task Manager</span>
   <span class="spacer"></span>
-  <button mat-button color="warn" (click)="clearAll()">Clear All</button>
+  <button mat-button color="warn" (click)="openDeleteConfirmationDialog()">
+    Clear All
+  </button>
 </mat-toolbar>
 
 <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>

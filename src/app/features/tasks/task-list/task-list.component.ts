@@ -4,6 +4,7 @@ import { TaskService } from '../task.service';
 import { Task } from '../models/task.model';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 // Material Imports
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -17,6 +18,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-task-list',
@@ -36,6 +38,7 @@ import { MatInputModule } from '@angular/material/input';
     MatDividerModule,
     MatPaginatorModule,
     MatInputModule,
+    MatDialogModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -53,7 +56,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   pageIndex: number = 0;
   pageSize: number = 5;
 
-  constructor(public taskService: TaskService) {}
+  constructor(public taskService: TaskService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.taskService.tasks$.subscribe((tasks) => {
@@ -149,12 +152,6 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     this.applyFilter();
   }
 
-  clearAll(): void {
-    if (confirm('Are you sure you want to delete all tasks?')) {
-      this.taskService.clearAllTasks();
-    }
-  }
-
   onPageChange(event: any): void {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
@@ -165,5 +162,28 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     const startIndex = this.pageIndex * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.filteredTasks = this.filteredTasksOriginal.slice(startIndex, endIndex);
+  }
+
+  clearAllTasks(): void {
+    this.taskService.clearAllTasks();
+  }
+
+  openDeleteConfirmationDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      hasBackdrop: true,
+      backdropClass: 'custom-dialog-backdrop',
+      data: {
+        title: 'Confirm Delete',
+        message:
+          'Are you sure you want to delete all tasks? This action cannot be undone.',
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.clearAllTasks();
+      }
+    });
   }
 }
