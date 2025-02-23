@@ -15,16 +15,6 @@
 ></app-task-form>
 
 <div class="controls">
-  <mat-form-field appearance="outline" class="control-item search-field">
-    <mat-label>Search Tasks</mat-label>
-    <input
-      matInput
-      [(ngModel)]="searchQuery"
-      (input)="applyFilter()"
-      placeholder="Search by title or description"
-    />
-  </mat-form-field>
-
   <mat-form-field
     appearance="outline"
     *ngIf="tasks.length > 0; else null"
@@ -65,6 +55,20 @@
       <mat-option value="priority-low">Priority: Low to High</mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    *ngIf="tasks.length > 1; else null"
+    class="control-item search-field"
+  >
+    <mat-label>Search Tasks</mat-label>
+    <input
+      matInput
+      [(ngModel)]="searchQuery"
+      (input)="applyFilter()"
+      placeholder="Search by title or description"
+    />
+  </mat-form-field>
 </div>
 
 <div class="task-list" *ngIf="filteredTasks.length > 0; else noTasks">
@@ -95,6 +99,7 @@
 </div>
 
 <mat-paginator
+  *ngIf="tasks.length > 5; else null"
   [length]="filteredTasksOriginal.length"
   [pageSize]="pageSize"
   [pageIndex]="pageIndex"
