@@ -5,6 +5,7 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -40,6 +41,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   styleUrl: './task-form.component.scss',
 })
 export class TaskFormComponent implements OnChanges {
+  @ViewChild('taskForm') taskForm!: NgForm;
   @Input() taskToEdit: Task | null = null;
   @Output() taskAdded = new EventEmitter<Task>();
   @Output() taskUpdated = new EventEmitter<Task>();
@@ -48,9 +50,26 @@ export class TaskFormComponent implements OnChanges {
   description = '';
   priority: 'Low' | 'Medium' | 'High' = 'Medium';
   deadline: Date | null = null;
+  showForm: boolean = true;
+
+  toggleFormVisibility(): void {
+    this.showForm = !this.showForm;
+
+    if (this.taskForm) {
+      setTimeout(() => {
+        this.taskForm.resetForm({
+          title: this.title,
+          description: this.description,
+          priority: this.priority,
+          deadline: this.deadline,
+        });
+      }, 0);
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['taskToEdit'] && this.taskToEdit) {
+      this.showForm = true;
       this.title = this.taskToEdit.title;
       this.description = this.taskToEdit.description || '';
       this.deadline = this.taskToEdit.deadline
