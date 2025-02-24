@@ -2,15 +2,6 @@
   <mat-card-content>
     <div class="form-container">
       <mat-form-field appearance="outline" class="task-input">
-        <mat-label>Priority</mat-label>
-        <mat-select [(ngModel)]="priority">
-          <mat-option value="Low">Low</mat-option>
-          <mat-option value="Medium">Medium</mat-option>
-          <mat-option value="High">High</mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline" class="task-input">
         <mat-label>Task Title</mat-label>
         <input matInput [(ngModel)]="title" placeholder="Enter task title" />
       </mat-form-field>
@@ -23,6 +14,32 @@
           placeholder="Enter task description"
         ></textarea>
       </mat-form-field>
+
+      <div class="row-fields">
+        <mat-form-field appearance="outline" class="task-input small-input">
+          <mat-label>Priority</mat-label>
+          <mat-select [(ngModel)]="priority">
+            <mat-option value="Low">Low</mat-option>
+            <mat-option value="Medium">Medium</mat-option>
+            <mat-option value="High">High</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="task-input small-input">
+          <mat-label>Deadline</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            [(ngModel)]="deadline"
+            placeholder="Select deadline"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
     </div>
   </mat-card-content>
 

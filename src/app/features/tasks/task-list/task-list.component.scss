@@ -201,3 +201,12 @@ mat-paginator {
 ::ng-deep .custom-dialog-backdrop {
   background-color: rgba(0, 0, 0, 0.85) !important;
 }
+
+.task-subtitle {
+  padding: math.div($spacing, 2);
+
+  .overdue {
+    color: #f15152;
+    font-weight: bold;
+  }
+}

@@ -164,6 +164,12 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     this.filteredTasks = this.filteredTasksOriginal.slice(startIndex, endIndex);
   }
 
+  isOverdue(task: Task): boolean {
+    return task.deadline
+      ? new Date(task.deadline) < new Date() && !task.completed
+      : false;
+  }
+
   clearAllTasks(): void {
     this.taskService.clearAllTasks();
   }

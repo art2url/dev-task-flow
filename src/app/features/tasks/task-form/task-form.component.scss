@@ -9,10 +9,27 @@
   padding: $spacing;
 }
 
+.task-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: math.div($spacing, 2);
+  padding: math.div($spacing, 2);
+}
+
 .form-container {
   display: flex;
   flex-direction: column;
-  gap: math.div($spacing, 2);
+  gap: $spacing;
+
+  .row-fields {
+    display: flex;
+    gap: $spacing;
+
+    .small-input {
+      flex: 1 1 45%;
+      min-width: 200px;
+    }
+  }
 }
 
 .task-input {
@@ -20,9 +37,11 @@
   margin-bottom: math.div($spacing, 2);
 }
 
-.task-buttons {
-  display: flex;
-  justify-content: flex-end;
-  gap: math.div($spacing, 2);
-  padding: math.div($spacing, 2);
+@media (max-width: 768px) {
+  .row-fields {
+    flex-direction: column;
+    .small-input {
+      width: 100%;
+    }
+  }
 }

@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-task-form',
@@ -30,6 +32,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatOptionModule,
     MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss',
@@ -42,11 +46,15 @@ export class TaskFormComponent implements OnChanges {
   title = '';
   description = '';
   priority: 'Low' | 'Medium' | 'High' = 'Medium';
+  deadline: Date | null = null;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['taskToEdit'] && this.taskToEdit) {
       this.title = this.taskToEdit.title;
-      this.description = this.taskToEdit.description || ''; // Load description if available
+      this.description = this.taskToEdit.description || '';
+      this.deadline = this.taskToEdit.deadline
+        ? new Date(this.taskToEdit.deadline)
+        : null;
     }
   }
 
@@ -60,6 +68,7 @@ export class TaskFormComponent implements OnChanges {
       completed: this.taskToEdit ? this.taskToEdit.completed : false,
       createdAt: this.taskToEdit ? this.taskToEdit.createdAt : new Date(),
       priority: this.priority,
+      deadline: this.deadline || null,
     };
 
     this.taskToEdit
@@ -71,7 +80,9 @@ export class TaskFormComponent implements OnChanges {
 
   resetForm() {
     this.title = '';
-    this.description = ''; // Clear description
+    this.description = '';
+    this.priority = 'Medium';
+    this.deadline = null;
     this.taskToEdit = null;
   }
 }

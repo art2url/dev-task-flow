@@ -77,11 +77,18 @@
     class="task-card priority-{{ task.priority }}"
   >
     <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
-    <mat-card-subtitle class="task-subtitle"
-      >{{ task.createdAt | date : "short" }} | Priority:
-      {{ task.priority }}</mat-card-subtitle
-    >
+    <mat-card-subtitle class="task-subtitle">
+      Created: {{ task.createdAt | date : "short" }} |
+      <span [class.overdue]="isOverdue(task)">
+        Deadline:
+        {{
+          task.deadline ? (task.deadline | date : "shortDate") : "No deadline"
+        }}
+      </span>
+    </mat-card-subtitle>
+
     <mat-card-content>{{ task.description }}</mat-card-content>
+
     <mat-divider class="divider"></mat-divider>
     <mat-card-actions class="task-handler">
       <mat-checkbox
