@@ -12,6 +12,11 @@ li {
 html,
 body {
   height: 100%;
-  background-color: #111313;
+  background-color: #101414;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.main-container {
+  max-width: 1375px;
+  margin: 0 auto;
 }

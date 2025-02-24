@@ -2,10 +2,9 @@
 @import "variables";
 
 .task-form-card {
-  background-color: var(--mat-sys-primary);
   box-shadow: $card-shadow;
   margin-bottom: 20px;
-  border-radius: 8px;
+  border-radius: $radius-bottom;
   padding: $spacing;
 }
 

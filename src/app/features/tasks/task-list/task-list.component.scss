@@ -1,10 +1,6 @@
 @use "sass:math";
 @import "variables";
 
-mat-progress-bar {
-  margin-bottom: math.div($spacing, 4);
-}
-
 mat-card-content {
   margin-top: math.div($spacing, 2);
   font-size: 14px;
