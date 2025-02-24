@@ -3,34 +3,25 @@
     <div [hidden]="!showForm">
       <mat-card-content>
         <div class="form-container">
-          <mat-form-field appearance="outline" class="task-input">
-            <mat-label>Task Title</mat-label>
-            <input
-              matInput
-              [(ngModel)]="title"
-              name="title"
-              placeholder="Enter task title"
-              required
-              [ngModelOptions]="{ updateOn: 'change' }"
-            />
-            <mat-error
-              *ngIf="
-                taskForm.controls['title']?.invalid &&
-                taskForm.controls['title']?.touched
-              "
-            >
-              This field is required
-            </mat-error>
-          </mat-form-field>
-
           <div class="row-fields">
-            <mat-form-field appearance="outline" class="task-input small-input">
-              <mat-label>Priority</mat-label>
-              <mat-select [(ngModel)]="priority" name="priority">
-                <mat-option value="Low">Low</mat-option>
-                <mat-option value="Medium">Medium</mat-option>
-                <mat-option value="High">High</mat-option>
-              </mat-select>
+            <mat-form-field appearance="outline" class="task-input wide-input">
+              <mat-label>Task Title</mat-label>
+              <input
+                matInput
+                [(ngModel)]="title"
+                name="title"
+                placeholder="Enter task title"
+                required
+                [ngModelOptions]="{ updateOn: 'change' }"
+              />
+              <mat-error
+                *ngIf="
+                  taskForm.controls['title']?.invalid &&
+                  taskForm.controls['title']?.touched
+                "
+              >
+                This field is required
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="outline" class="task-input small-input">
@@ -47,6 +38,15 @@
                 [for]="picker"
               ></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="task-input small-input">
+              <mat-label>Priority</mat-label>
+              <mat-select [(ngModel)]="priority" name="priority">
+                <mat-option value="Low">Low</mat-option>
+                <mat-option value="Medium">Medium</mat-option>
+                <mat-option value="High">High</mat-option>
+              </mat-select>
             </mat-form-field>
           </div>
 
