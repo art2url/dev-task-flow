@@ -9,6 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Task } from '../models/task.model';
+import { NgForm } from '@angular/forms';
 
 // Import Angular Material Modules
 import { MatCardModule } from '@angular/material/card';
@@ -58,13 +59,13 @@ export class TaskFormComponent implements OnChanges {
     }
   }
 
-  saveTask() {
+  saveTask(taskForm: NgForm) {
     if (!this.title.trim()) return;
 
     const updatedTask: Task = {
       id: this.taskToEdit ? this.taskToEdit.id : Date.now(),
       title: this.title,
-      description: this.description, // Include updated description
+      description: this.description,
       completed: this.taskToEdit ? this.taskToEdit.completed : false,
       createdAt: this.taskToEdit ? this.taskToEdit.createdAt : new Date(),
       priority: this.priority,
@@ -75,10 +76,11 @@ export class TaskFormComponent implements OnChanges {
       ? this.taskUpdated.emit(updatedTask)
       : this.taskAdded.emit(updatedTask);
 
-    this.resetForm();
+    this.resetForm(taskForm);
   }
 
-  resetForm() {
+  resetForm(taskForm: NgForm) {
+    taskForm.resetForm();
     this.title = '';
     this.description = '';
     this.priority = 'Medium';
