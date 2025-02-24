@@ -85,7 +85,8 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       const matchesStatus =
         this.filterStatus === 'all' ||
         (this.filterStatus === 'completed' && task.completed) ||
-        (this.filterStatus === 'incomplete' && !task.completed);
+        (this.filterStatus === 'incomplete' && !task.completed) ||
+        (this.filterStatus === 'overdue' && this.isOverdue(task));
 
       const matchesSearch = this.searchQuery
         ? task.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
