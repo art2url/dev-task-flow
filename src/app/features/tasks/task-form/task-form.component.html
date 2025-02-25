@@ -1,4 +1,4 @@
-<mat-card class="task-form-card">
+<mat-card class="task-form-card" appearance="outlined">
   <form #taskForm="ngForm">
     <div [hidden]="!showForm">
       <mat-card-content>
@@ -64,17 +64,13 @@
     </div>
 
     <mat-card-actions class="task-buttons">
-      <button
-        mat-stroked-button
-        color="accent"
-        (click)="toggleFormVisibility()"
-      >
-        {{ showForm ? "Hide Task Form" : "Show Task Form" }}
+      <button mat-button (click)="toggleFormVisibility()">
+        {{ showForm ? "⌝ Hide Task Form ⌜" : "⌟ Show Task Form ⌞" }}
       </button>
 
       <div *ngIf="showForm">
         <button
-          mat-raised-button
+          mat-flat-button
           color="primary"
           (click)="saveTask(taskForm)"
           [disabled]="!taskForm.form.valid"

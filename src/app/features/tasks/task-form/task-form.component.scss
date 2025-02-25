@@ -1,18 +1,22 @@
 @use "sass:math";
 @import "variables";
 
+mat-card-content {
+  padding-bottom: 0 !important;
+}
+
 .task-form-card {
   box-shadow: $card-shadow;
-  margin-bottom: 20px;
-  border-radius: $radius-bottom;
-  padding: $spacing;
+  margin-bottom: 30px;
+  padding-top: 16px;
+  border-radius: 0px 0px $spacing $spacing;
 }
 
 .task-buttons {
   display: flex;
   justify-content: space-between;
-  gap: math.div($spacing, 2);
-  padding: math.div($spacing, 2);
+  padding: math.div($spacing, 1);
+  margin-bottom: 20px;
 }
 
 .form-container {
@@ -51,7 +55,6 @@
 
 .task-input {
   width: 100%;
-  margin-bottom: math.div($spacing, 2);
 }
 
 @media (max-width: 768px) {
