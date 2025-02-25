@@ -10,13 +10,6 @@ mat-card-content {
   white-space: pre-line;
 }
 
-mat-paginator {
-  margin-top: 16px;
-  display: flex;
-  justify-content: left;
-  padding: math.div($spacing, 2);
-}
-
 .task-form-card {
   background-color: var(--mat-sys-primary);
   box-shadow: $card-shadow;
@@ -136,4 +129,16 @@ mat-paginator {
 
 ::ng-deep .custom-dialog-backdrop {
   background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.paginator-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding: math.div($spacing, 2);
+}
+
+.clear-button {
+  margin-right: math.div($spacing, 2);
 }

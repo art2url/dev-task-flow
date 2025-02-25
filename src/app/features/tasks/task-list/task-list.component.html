@@ -106,15 +106,25 @@
   </mat-card>
 </div>
 
-<mat-paginator
-  *ngIf="tasks.length > 6; else null"
-  [length]="filteredTasksOriginal.length"
-  [pageSize]="pageSize"
-  [pageIndex]="pageIndex"
-  [pageSizeOptions]="[6, 12, 24]"
-  (page)="onPageChange($event)"
->
-</mat-paginator>
+<div class="paginator-container" *ngIf="tasks.length > 5">
+  <mat-paginator
+    [length]="filteredTasksOriginal.length"
+    [pageSize]="pageSize"
+    [pageIndex]="pageIndex"
+    [pageSizeOptions]="[6, 12, 24]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+
+  <button
+    class="clear-button"
+    mat-button
+    color="warn"
+    (click)="openDeleteConfirmationDialog()"
+  >
+    Clear All
+  </button>
+</div>
 
 <ng-template #noTasks>
   <p class="no-tasks">No tasks available.</p>

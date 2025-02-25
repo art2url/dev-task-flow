@@ -20,10 +20,6 @@ export class HeaderComponent {
     this.toggleForm.emit();
   }
 
-  onClearAll(): void {
-    this.clearAllClicked.emit();
-  }
-
   onLogin(): void {
     this.loginClicked.emit();
   }
