@@ -48,7 +48,7 @@ export class TaskFormComponent implements OnChanges {
 
   title = '';
   description = '';
-  priority: 'Low' | 'Medium' | 'High' = 'Medium';
+  priority: 'Low' | 'Medium' | 'High' = 'Low';
   deadline: Date | null = null;
   showForm: boolean = true;
 
@@ -102,7 +102,7 @@ export class TaskFormComponent implements OnChanges {
     taskForm.resetForm();
     this.title = '';
     this.description = '';
-    this.priority = 'Medium';
+    this.priority = 'Low';
     this.deadline = null;
     this.taskToEdit = null;
   }

@@ -56,7 +56,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   prioritySortOrder: string = 'priority-high';
   progress: number = 0;
   pageIndex: number = 0;
-  pageSize: number = 5;
+  pageSize: number = 6;
   showForm = true;
 
   constructor(public taskService: TaskService, private dialog: MatDialog) {}
