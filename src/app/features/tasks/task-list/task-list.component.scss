@@ -74,80 +74,35 @@ mat-paginator {
   display: flex;
   flex-wrap: wrap;
   gap: $spacing;
+  justify-content: space-between;
   padding: $spacing;
-  justify-content: flex-start;
-  margin-top: math.div($spacing, 2) * 2;
 
   .control-item,
   .search-field {
-    flex: 1 1 220px;
-    min-width: 220px;
-    max-width: 300px;
-  }
-
-  .search-field {
-    flex: 2 1 300px;
-    min-width: 300px;
+    flex: 1 0 calc(25% - #{$spacing});
+    min-width: 160px;
     max-width: 400px;
   }
 }
 
-// Media Queries Consolidated
-@media (min-width: 1240px) {
+@media (max-width: 1040px) and (min-width: 601px) {
   .controls {
-    justify-content: flex-start;
     .control-item,
     .search-field {
-      width: auto;
-      min-width: 250px;
-      max-width: 400px;
-    }
-  }
-}
-
-@media (min-width: 1375px) {
-  .controls {
-    flex-wrap: nowrap;
-  }
-}
-
-@media (max-width: 1024px) {
-  .controls {
-    flex-direction: row;
-    justify-content: center;
-
-    .control-item,
-    .search-field {
-      flex: 1 1 calc(50% - #{math.div($spacing, 1)});
-      width: 100%;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .controls {
-    flex-direction: column;
-    .control-item,
-    .search-field {
-      width: 100%;
+      flex: 1 0 calc(50% - #{$spacing});
+      min-width: 45%;
+      max-width: 100%;
     }
   }
 }
 
 @media (max-width: 600px) {
   .controls {
-    gap: math.div($spacing, 2);
-
     .control-item,
     .search-field {
-      width: 100%;
-      font-size: 14px;
-
-      mat-select,
-      input[matInput] {
-        font-size: 14px;
-        height: 40px;
-      }
+      flex: 1 0 100%;
+      min-width: 100%;
+      max-width: 100%;
     }
   }
 }
