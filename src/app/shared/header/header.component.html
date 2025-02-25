@@ -1,0 +1,15 @@
+<mat-toolbar color="primary">
+  <span>DevTaskFlow - Task Manager</span>
+  <span class="spacer"></span>
+
+  <!-- Future login button placeholder -->
+  <button mat-button color="accent" (click)="onLogin()">Login</button>
+
+  <!-- Show/Hide Task Form -->
+  <button mat-button color="accent" (click)="onToggleForm()">
+    {{ showForm ? "⌝ Hide Task Form ⌜" : "⌟ Show Task Form ⌞" }}
+  </button>
+
+  <!-- Clear All -->
+  <button mat-button color="warn" (click)="onClearAll()">Clear All</button>
+</mat-toolbar>

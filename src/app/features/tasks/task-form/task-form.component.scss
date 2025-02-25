@@ -7,16 +7,21 @@ mat-card-content {
 
 .task-form-card {
   box-shadow: $card-shadow;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   padding-top: 16px;
   border-radius: 0px 0px $spacing $spacing;
 }
 
 .task-buttons {
   display: flex;
-  justify-content: space-between;
   padding: math.div($spacing, 1);
   margin-bottom: 20px;
+  justify-content: flex-end;
+
+  .right-actions {
+    display: flex;
+    gap: math.div($spacing, 2);
+  }
 }
 
 .form-container {

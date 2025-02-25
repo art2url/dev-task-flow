@@ -64,11 +64,7 @@
     </div>
 
     <mat-card-actions class="task-buttons">
-      <button mat-button (click)="toggleFormVisibility()">
-        {{ showForm ? "⌝ Hide Task Form ⌜" : "⌟ Show Task Form ⌞" }}
-      </button>
-
-      <div *ngIf="showForm">
+      <div class="right-actions">
         <button
           mat-flat-button
           color="primary"

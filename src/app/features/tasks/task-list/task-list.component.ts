@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../task.service';
+import { HeaderComponent } from '../../../shared/header/header.component';
 import { Task } from '../models/task.model';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
@@ -39,6 +40,7 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
     MatPaginatorModule,
     MatInputModule,
     MatDialogModule,
+    HeaderComponent,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -55,6 +57,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   progress: number = 0;
   pageIndex: number = 0;
   pageSize: number = 5;
+  showForm = true;
 
   constructor(public taskService: TaskService, private dialog: MatDialog) {}
 
@@ -67,6 +70,10 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       this.applyFilter();
       this.calculateProgress();
     });
+  }
+
+  toggleFormVisibility(): void {
+    this.showForm = !this.showForm;
   }
 
   ngAfterViewInit(): void {
@@ -169,6 +176,11 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     return task.deadline
       ? new Date(task.deadline) < new Date() && !task.completed
       : false;
+  }
+
+  onLoginClicked(): void {
+    // future login logic here
+    console.log('Login button clicked!');
   }
 
   clearAllTasks(): void {

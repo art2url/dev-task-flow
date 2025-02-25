@@ -1,14 +1,14 @@
-<mat-toolbar color="primary">
-  <span>DevTaskFlow - Task Manager</span>
-  <span class="spacer"></span>
-  <button mat-button color="warn" (click)="openDeleteConfirmationDialog()">
-    Clear All
-  </button>
-</mat-toolbar>
+<app-header
+  [showForm]="showForm"
+  (toggleForm)="toggleFormVisibility()"
+  (clearAllClicked)="openDeleteConfirmationDialog()"
+  (loginClicked)="onLoginClicked()"
+></app-header>
 
 <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
 
 <app-task-form
+  *ngIf="showForm"
   [taskToEdit]="taskToEdit"
   (taskAdded)="handleTaskAdded($event)"
   (taskUpdated)="handleTaskUpdated($event)"
