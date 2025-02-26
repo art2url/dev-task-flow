@@ -83,6 +83,70 @@ mat-card-content {
   }
 }
 
+.task-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: $spacing;
+  transition: box-shadow 0.3s;
+  box-shadow: $card-shadow;
+
+  &:hover {
+    box-shadow: $card-hover-shadow;
+  }
+
+  &.pinned-task {
+    border: 2px dashed #404847;
+  }
+
+  &.priority-Low {
+    border-left: 5px solid #4d8b31;
+  }
+
+  &.priority-Medium {
+    border-left: 5px solid #ffc857;
+  }
+
+  &.priority-High {
+    border-left: 5px solid #f15152;
+  }
+
+  mat-card-content {
+    flex: 1 1 auto;
+  }
+
+  .divider,
+  .task-handler {
+    margin-top: auto;
+  }
+}
+
+.task-handler {
+  display: flex;
+  padding: 0;
+  align-items: center;
+
+  .spacer {
+    flex: 1 1 auto;
+  }
+}
+
+.paginator-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding: math.div($spacing, 2);
+}
+
+.clear-button {
+  margin-right: math.div($spacing, 2);
+}
+
+::ng-deep .custom-dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
 @media (max-width: 1040px) and (min-width: 601px) {
   .controls {
     .control-item,
@@ -103,51 +167,4 @@ mat-card-content {
       max-width: 100%;
     }
   }
-}
-
-.task-handler {
-  padding: 0;
-  margin-top: math.div($spacing, 2);
-}
-
-.divider {
-  margin-top: math.div($spacing, 2);
-}
-
-.task-card {
-  padding: $spacing;
-  transition: box-shadow 0.3s;
-  box-shadow: $card-shadow;
-
-  &:hover {
-    box-shadow: $card-hover-shadow;
-  }
-
-  &.priority-Low {
-    border-left: 5px solid #4d8b31;
-  }
-
-  &.priority-Medium {
-    border-left: 5px solid #ffc857;
-  }
-
-  &.priority-High {
-    border-left: 5px solid #f15152;
-  }
-}
-
-::ng-deep .custom-dialog-backdrop {
-  background-color: rgba(0, 0, 0, 0.85) !important;
-}
-
-.paginator-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-  padding: math.div($spacing, 2);
-}
-
-.clear-button {
-  margin-right: math.div($spacing, 2);
 }

@@ -6,4 +6,5 @@ export interface Task {
   priority: 'Low' | 'Medium' | 'High';
   createdAt: Date;
   deadline?: Date | null;
+  pinned?: boolean;
 }

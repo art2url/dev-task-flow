@@ -76,6 +76,13 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     this.showForm = !this.showForm;
   }
 
+  togglePin(task: Task): void {
+    const updatedTask = { ...task, pinned: !task.pinned };
+    this.taskService.updateTask(updatedTask);
+
+    this.applyFilter();
+  }
+
   ngAfterViewInit(): void {
     setTimeout(() => this.calculateProgress(), 0);
   }
@@ -88,6 +95,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
   applyFilter(): void {
     this.pageIndex = 0;
+
     this.filteredTasksOriginal = this.tasks.filter((task) => {
       const matchesStatus =
         this.filterStatus === 'all' ||
@@ -105,8 +113,16 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
       return matchesStatus && matchesSearch;
     });
+
     this.applyPrioritySort();
     this.applyDateSort();
+
+    this.filteredTasksOriginal.sort((a, b) => {
+      if (a.pinned && !b.pinned) return -1;
+      if (!a.pinned && b.pinned) return 1;
+      return 0;
+    });
+
     this.updatePaginatedTasks();
   }
 

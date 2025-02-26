@@ -77,7 +77,8 @@
 <div class="task-list" *ngIf="filteredTasks.length > 0; else noTasks">
   <mat-card
     *ngFor="let task of filteredTasks"
-    class="task-card priority-{{ task.priority }}"
+    class="task-card priority-{{ task.priority }} 
+         {{ task.pinned ? 'pinned-task' : '' }}"
   >
     <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
     <mat-card-subtitle class="task-subtitle">
@@ -97,9 +98,14 @@
       <mat-checkbox
         [checked]="task.completed"
         (change)="toggleTaskCompletion(task)"
-        >Completed</mat-checkbox
       >
+        Completed
+      </mat-checkbox>
       <span class="spacer"></span>
+
+      <button mat-button (click)="togglePin(task)">
+        {{ task.pinned ? "Unpin" : "Pin" }}
+      </button>
       <button mat-button color="primary" (click)="startEdit(task)">Edit</button>
       <button mat-button color="warn" (click)="deleteTask(task.id)">
         Delete
