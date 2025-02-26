@@ -1,0 +1,57 @@
+<div class="controls">
+  <mat-form-field
+    appearance="outline"
+    *ngIf="tasks.length > 0"
+    class="control-item"
+  >
+    <mat-label>Filter Tasks</mat-label>
+    <mat-select [(ngModel)]="filterStatus" (ngModelChange)="onFilterChanged()">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="completed">Completed</mat-option>
+      <mat-option value="incomplete">Incomplete</mat-option>
+      <mat-option value="overdue">Overdue</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    *ngIf="tasks.length > 1"
+    class="control-item"
+  >
+    <mat-label>Sort by Date</mat-label>
+    <mat-select [(ngModel)]="dateSortOrder" (ngModelChange)="onFilterChanged()">
+      <mat-option value="unsorted">Unsorted</mat-option>
+      <mat-option value="newest">Newest First</mat-option>
+      <mat-option value="oldest">Oldest First</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    *ngIf="tasks.length > 1"
+    class="control-item"
+  >
+    <mat-label>Sort by Priority</mat-label>
+    <mat-select
+      [(ngModel)]="prioritySortOrder"
+      (ngModelChange)="onFilterChanged()"
+    >
+      <mat-option value="priority-high">Priority: High to Low</mat-option>
+      <mat-option value="priority-low">Priority: Low to High</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field
+    appearance="outline"
+    *ngIf="tasks.length > 1"
+    class="control-item search-field"
+  >
+    <mat-label>Search Tasks</mat-label>
+    <input
+      matInput
+      [(ngModel)]="searchQuery"
+      (input)="onFilterChanged()"
+      placeholder="Search by title or description"
+    />
+  </mat-form-field>
+</div>

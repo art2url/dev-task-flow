@@ -1,0 +1,40 @@
+@use "sass:math";
+@import "variables";
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing;
+  justify-content: space-between;
+  padding: $spacing;
+  margin-top: 30px;
+
+  .control-item,
+  .search-field {
+    flex: 1 0 calc(25% - #{$spacing});
+    min-width: 160px;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 1040px) and (min-width: 601px) {
+  .controls {
+    .control-item,
+    .search-field {
+      flex: 1 0 calc(50% - #{$spacing});
+      min-width: 45%;
+      max-width: 100%;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .controls {
+    .control-item,
+    .search-field {
+      flex: 1 0 100%;
+      min-width: 100%;
+      max-width: 100%;
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { Task } from '../models/task.model';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { TaskControlsComponent } from '../task-controls/task-controls.component';
 
 // Material Imports
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -28,6 +29,8 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
     CommonModule,
     FormsModule,
     TaskFormComponent,
+    HeaderComponent,
+    TaskControlsComponent,
     MatToolbarModule,
     MatButtonModule,
     MatCardModule,
@@ -40,7 +43,6 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
     MatPaginatorModule,
     MatInputModule,
     MatDialogModule,
-    HeaderComponent,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -50,10 +52,6 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   filteredTasks: Task[] = [];
   filteredTasksOriginal: Task[] = [];
   taskToEdit: Task | null = null;
-  searchQuery: string = '';
-  filterStatus: string = 'all';
-  dateSortOrder: string = 'newest';
-  prioritySortOrder: string = 'priority-high';
   progress: number = 0;
   pageIndex: number = 0;
   pageSize: number = 6;
@@ -67,92 +65,32 @@ export class TaskListComponent implements OnInit, AfterViewInit {
         ...task,
         createdAt: new Date(task.createdAt),
       }));
-      this.applyFilter();
+
+      this.filteredTasks = [...this.tasks];
+      this.filteredTasksOriginal = [...this.tasks];
       this.calculateProgress();
     });
-  }
-
-  toggleFormVisibility(): void {
-    this.showForm = !this.showForm;
-  }
-
-  togglePin(task: Task): void {
-    const updatedTask = { ...task, pinned: !task.pinned };
-    this.taskService.updateTask(updatedTask);
-
-    this.applyFilter();
   }
 
   ngAfterViewInit(): void {
     setTimeout(() => this.calculateProgress(), 0);
   }
 
+  onFilteredTasksChange(newList: Task[]): void {
+    this.filteredTasksOriginal = newList;
+    this.pageIndex = 0;
+    this.updatePaginatedTasks();
+  }
+
+  togglePin(task: Task): void {
+    const updatedTask = { ...task, pinned: !task.pinned };
+    this.taskService.updateTask(updatedTask);
+  }
+
   calculateProgress(): void {
     const totalTasks = this.tasks.length;
     const completedTasks = this.tasks.filter((task) => task.completed).length;
     this.progress = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
-  }
-
-  applyFilter(): void {
-    this.pageIndex = 0;
-
-    this.filteredTasksOriginal = this.tasks.filter((task) => {
-      const matchesStatus =
-        this.filterStatus === 'all' ||
-        (this.filterStatus === 'completed' && task.completed) ||
-        (this.filterStatus === 'incomplete' && !task.completed) ||
-        (this.filterStatus === 'overdue' && this.isOverdue(task));
-
-      const matchesSearch = this.searchQuery
-        ? task.title.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
-          (task.description &&
-            task.description
-              .toLowerCase()
-              .includes(this.searchQuery.toLowerCase()))
-        : true;
-
-      return matchesStatus && matchesSearch;
-    });
-
-    this.applyPrioritySort();
-    this.applyDateSort();
-
-    this.filteredTasksOriginal.sort((a, b) => {
-      if (a.pinned && !b.pinned) return -1;
-      if (!a.pinned && b.pinned) return 1;
-      return 0;
-    });
-
-    this.updatePaginatedTasks();
-  }
-
-  applyDateSort(): void {
-    if (this.dateSortOrder === 'newest') {
-      this.filteredTasksOriginal.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
-    } else if (this.dateSortOrder === 'oldest') {
-      this.filteredTasksOriginal.sort(
-        (a, b) =>
-          new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-      );
-    }
-    this.updatePaginatedTasks();
-  }
-
-  applyPrioritySort(): void {
-    const priorityOrder = { High: 1, Medium: 2, Low: 3 };
-    this.filteredTasksOriginal.sort((a, b) => {
-      return this.prioritySortOrder === 'priority-high'
-        ? priorityOrder[a.priority] - priorityOrder[b.priority]
-        : priorityOrder[b.priority] - priorityOrder[a.priority];
-    });
-    this.updatePaginatedTasks();
-  }
-
-  startEdit(task: Task): void {
-    this.taskToEdit = { ...task };
   }
 
   handleTaskAdded(task: Task): void {
@@ -165,6 +103,10 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     this.taskToEdit = null;
   }
 
+  startEdit(task: Task): void {
+    this.taskToEdit = { ...task };
+  }
+
   deleteTask(taskId: number): void {
     this.taskService.deleteTask(taskId);
   }
@@ -173,7 +115,6 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     const updatedTask = { ...task, completed: !task.completed };
     this.taskService.updateTask(updatedTask);
     this.calculateProgress();
-    this.applyFilter();
   }
 
   onPageChange(event: any): void {
@@ -194,9 +135,8 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       : false;
   }
 
-  onLoginClicked(): void {
-    // future login logic here
-    console.log('Login button clicked!');
+  toggleFormVisibility(): void {
+    this.showForm = !this.showForm;
   }
 
   clearAllTasks(): void {
@@ -220,5 +160,9 @@ export class TaskListComponent implements OnInit, AfterViewInit {
         this.clearAllTasks();
       }
     });
+  }
+
+  onLoginClicked(): void {
+    console.log('Login button clicked!');
   }
 }

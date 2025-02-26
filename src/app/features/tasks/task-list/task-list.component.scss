@@ -67,22 +67,6 @@ mat-card-content {
   margin-top: 20px;
 }
 
-.controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: $spacing;
-  justify-content: space-between;
-  padding: $spacing;
-  margin-top: 30px;
-
-  .control-item,
-  .search-field {
-    flex: 1 0 calc(25% - #{$spacing});
-    min-width: 160px;
-    max-width: 400px;
-  }
-}
-
 .task-card {
   display: flex;
   flex-direction: column;
@@ -102,11 +86,9 @@ mat-card-content {
   &.priority-Low {
     border-left: 5px solid #4d8b31;
   }
-
   &.priority-Medium {
     border-left: 5px solid #ffc857;
   }
-
   &.priority-High {
     border-left: 5px solid #f15152;
   }
@@ -114,7 +96,6 @@ mat-card-content {
   mat-card-content {
     flex: 1 1 auto;
   }
-
   .divider,
   .task-handler {
     margin-top: auto;
@@ -145,26 +126,4 @@ mat-card-content {
 
 ::ng-deep .custom-dialog-backdrop {
   background-color: rgba(0, 0, 0, 0.85) !important;
-}
-
-@media (max-width: 1040px) and (min-width: 601px) {
-  .controls {
-    .control-item,
-    .search-field {
-      flex: 1 0 calc(50% - #{$spacing});
-      min-width: 45%;
-      max-width: 100%;
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .controls {
-    .control-item,
-    .search-field {
-      flex: 1 0 100%;
-      min-width: 100%;
-      max-width: 100%;
-    }
-  }
 }

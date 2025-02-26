@@ -16,69 +16,18 @@
   (taskUpdated)="handleTaskUpdated($event)"
 ></app-task-form>
 
-<div class="controls">
-  <mat-form-field
-    appearance="outline"
-    *ngIf="tasks.length > 0; else null"
-    class="control-item"
-  >
-    <mat-label>Filter Tasks</mat-label>
-    <mat-select [(ngModel)]="filterStatus" (selectionChange)="applyFilter()">
-      <mat-option value="all">All</mat-option>
-      <mat-option value="completed">Completed</mat-option>
-      <mat-option value="incomplete">Incomplete</mat-option>
-      <mat-option value="overdue">Overdue</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field
-    appearance="outline"
-    *ngIf="tasks.length > 1; else null"
-    class="control-item"
-  >
-    <mat-label>Sort by Date</mat-label>
-    <mat-select [(ngModel)]="dateSortOrder" (selectionChange)="applyDateSort()">
-      <mat-option value="unsorted">Unsorted</mat-option>
-      <mat-option value="newest">Newest First</mat-option>
-      <mat-option value="oldest">Oldest First</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field
-    appearance="outline"
-    *ngIf="tasks.length > 1; else null"
-    class="control-item"
-  >
-    <mat-label>Sort by Priority</mat-label>
-    <mat-select
-      [(ngModel)]="prioritySortOrder"
-      (selectionChange)="applyPrioritySort()"
-    >
-      <mat-option value="priority-high">Priority: High to Low</mat-option>
-      <mat-option value="priority-low">Priority: Low to High</mat-option>
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field
-    appearance="outline"
-    *ngIf="tasks.length > 1; else null"
-    class="control-item search-field"
-  >
-    <mat-label>Search Tasks</mat-label>
-    <input
-      matInput
-      [(ngModel)]="searchQuery"
-      (input)="applyFilter()"
-      placeholder="Search by title or description"
-    />
-  </mat-form-field>
-</div>
+<app-task-controls
+  [tasks]="tasks"
+  (filteredTasksChange)="onFilteredTasksChange($event)"
+>
+</app-task-controls>
 
 <div class="task-list" *ngIf="filteredTasks.length > 0; else noTasks">
   <mat-card
     *ngFor="let task of filteredTasks"
-    class="task-card priority-{{ task.priority }} 
-         {{ task.pinned ? 'pinned-task' : '' }}"
+    class="task-card priority-{{ task.priority }} {{
+      task.pinned ? 'pinned-task' : ''
+    }}"
   >
     <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
     <mat-card-subtitle class="task-subtitle">
