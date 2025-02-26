@@ -10,6 +10,15 @@ mat-card-content {
   white-space: pre-line;
 }
 
+.progress-bar-wrapper {
+  margin: 0 math.div($spacing, 1);
+
+  mat-progress-bar {
+    width: 100%;
+    display: block;
+  }
+}
+
 .task-form-card {
   background-color: var(--mat-sys-primary);
   box-shadow: $card-shadow;

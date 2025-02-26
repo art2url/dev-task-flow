@@ -5,7 +5,9 @@
   (loginClicked)="onLoginClicked()"
 ></app-header>
 
-<mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+<div class="progress-bar-wrapper">
+  <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
+</div>
 
 <app-task-form
   *ngIf="showForm"
