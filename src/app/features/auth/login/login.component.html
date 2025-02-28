@@ -1,16 +1,31 @@
+<app-header></app-header>
+
 <div class="auth-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="login()">
-    <label>Email</label>
-    <input type="email" [(ngModel)]="email" name="email" required />
+  <mat-card class="auth-card">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="auth-input">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email" type="email" required />
+      </mat-form-field>
 
-    <label>Password</label>
-    <input type="password" [(ngModel)]="password" name="password" required />
+      <mat-form-field appearance="outline" class="auth-input">
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="password" type="password" required />
+      </mat-form-field>
 
-    <button type="submit">Login</button>
-  </form>
+      <button
+        mat-flat-button
+        color="primary"
+        class="auth-button"
+        (click)="onLogin()"
+      >
+        Login
+      </button>
 
-  <p *ngIf="errorMessage">{{ errorMessage }}</p>
-
-  <p>Don't have an account? <a routerLink="/register">Register</a></p>
+      <p class="auth-text">
+        Don't have an account?
+        <a routerLink="/register">Register here</a>
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>

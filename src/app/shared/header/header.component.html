@@ -1,21 +1,17 @@
 <mat-toolbar color="primary">
-  <span>DevTaskFlow - Task Manager</span>
+  <span>{{ title }}</span>
   <span class="spacer"></span>
 
-  <button mat-button color="accent" (click)="onToggleForm()">
+  <button
+    *ngIf="!isAuthPage"
+    mat-button
+    color="accent"
+    (click)="toggleForm.emit()"
+  >
     {{ showForm ? "⌝ Hide Task Form ⌜" : "⌟ Show Task Form ⌞" }}
   </button>
 
-  <button
-    mat-button
-    color="accent"
-    *ngIf="!isAuthenticated"
-    routerLink="/login"
-  >
-    Login
-  </button>
-
-  <button mat-button color="warn" *ngIf="isAuthenticated" (click)="logout()">
-    Logout
+  <button mat-button color="accent" (click)="onButtonClick()">
+    {{ buttonLabel }}
   </button>
 </mat-toolbar>

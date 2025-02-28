@@ -1,8 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -14,25 +14,41 @@ import { Router } from '@angular/router';
 export class HeaderComponent {
   @Input() showForm: boolean = true;
   @Output() toggleForm = new EventEmitter<void>();
-  @Output() clearAllClicked = new EventEmitter<void>();
-  @Output() loginClicked = new EventEmitter<void>();
+  @Output() logout = new EventEmitter<void>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private route: ActivatedRoute) {}
 
-  get isAuthenticated(): boolean {
-    return !!localStorage.getItem('authToken');
+  get isAuthPage(): boolean {
+    return (
+      this.router.url.includes('/login') ||
+      this.router.url.includes('/register')
+    );
   }
 
-  logout(): void {
-    localStorage.removeItem('authToken');
-    this.router.navigate(['/login']);
+  get title(): string {
+    if (this.router.url.includes('/login')) return 'Login';
+    if (this.router.url.includes('/register')) return 'Register';
+    return 'DevTaskFlow - Task Manager';
   }
 
-  onToggleForm(): void {
-    this.toggleForm.emit();
+  get buttonLabel(): string {
+    if (this.router.url.includes('/login')) return 'Register';
+    if (this.router.url.includes('/register')) return 'Login';
+    return localStorage.getItem('authToken') ? 'Logout' : 'Login';
   }
 
-  onLogin(): void {
-    this.loginClicked.emit();
+  onButtonClick(): void {
+    if (this.router.url.includes('/login')) {
+      this.router.navigate(['/register']);
+    } else if (this.router.url.includes('/register')) {
+      this.router.navigate(['/login']);
+    } else {
+      if (localStorage.getItem('authToken')) {
+        localStorage.removeItem('authToken');
+        this.logout.emit();
+      } else {
+        this.router.navigate(['/login']);
+      }
+    }
   }
 }

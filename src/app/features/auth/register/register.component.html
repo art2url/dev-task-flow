@@ -1,19 +1,36 @@
+<app-header></app-header>
+
 <div class="auth-container">
-  <h2>Register</h2>
-  <form (ngSubmit)="register()">
-    <label>Username</label>
-    <input type="text" [(ngModel)]="username" name="username" required />
+  <mat-card class="auth-card">
+    <mat-card-content>
+      <mat-form-field appearance="outline" class="auth-input">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="username" type="text" required />
+      </mat-form-field>
 
-    <label>Email</label>
-    <input type="email" [(ngModel)]="email" name="email" required />
+      <mat-form-field appearance="outline" class="auth-input">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="email" type="email" required />
+      </mat-form-field>
 
-    <label>Password</label>
-    <input type="password" [(ngModel)]="password" name="password" required />
+      <mat-form-field appearance="outline" class="auth-input">
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="password" type="password" required />
+      </mat-form-field>
 
-    <button type="submit">Register</button>
-  </form>
+      <button
+        mat-flat-button
+        color="primary"
+        class="auth-button"
+        (click)="onRegister()"
+      >
+        Register
+      </button>
 
-  <p *ngIf="errorMessage">{{ errorMessage }}</p>
-
-  <p>Already have an account? <a routerLink="/login">Login</a></p>
+      <p class="auth-text">
+        Already have an account?
+        <a routerLink="/login">Login here</a>
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>
