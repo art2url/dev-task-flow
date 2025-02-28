@@ -4,7 +4,7 @@ import { LoginComponent } from './features/auth/login/login.component';
 
 export const appRoutes: Routes = [
   { path: 'tasks', component: TaskListComponent },
-  { path: 'auth', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'tasks', pathMatch: 'full' },
   { path: '**', redirectTo: 'tasks' },
 ];
