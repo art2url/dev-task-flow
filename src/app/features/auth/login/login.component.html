@@ -49,7 +49,12 @@
           <span *ngIf="!loading">Login</span>
         </button>
 
-        <p class="auth-text">
+        <p class="auth-text error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+          <a routerLink="#">Forgot?</a>
+        </p>
+
+        <p class="auth-text" *ngIf="!errorMessage">
           Don't have an account?
           <a routerLink="/register">Register here</a>
         </p>

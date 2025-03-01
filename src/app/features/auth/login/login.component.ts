@@ -53,7 +53,8 @@ export class LoginComponent {
           this.router.navigate(['/tasks']);
         },
         error: () => {
-          this.errorMessage = 'Invalid email or password';
+          this.loading = false;
+          this.errorMessage = 'Password or email does not match.';
         },
         complete: () => (this.loading = false),
       });
