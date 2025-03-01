@@ -3,49 +3,69 @@
 <div class="auth-container">
   <mat-card class="auth-card">
     <mat-card-content>
-      <mat-form-field appearance="outline" class="auth-input">
-        <mat-label>Username</mat-label>
-        <input
-          matInput
-          [(ngModel)]="username"
-          type="text"
-          required
-          (keypress)="onKeyPress($event)"
-        />
-      </mat-form-field>
+      <form #registerForm="ngForm">
+        <mat-form-field appearance="outline" class="auth-input">
+          <mat-label>Username</mat-label>
+          <input
+            matInput
+            [(ngModel)]="username"
+            name="username"
+            type="text"
+            required
+            minlength="3"
+            #usernameInput="ngModel"
+            (keypress)="onKeyPress($event)"
+          />
+          <mat-error *ngIf="usernameInput.invalid && usernameInput.touched">
+            Username must be at least 3 characters.
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="auth-input">
-        <mat-label>Email</mat-label>
-        <input
-          matInput
-          [(ngModel)]="email"
-          type="email"
-          required
-          (keypress)="onKeyPress($event)"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="auth-input">
+          <mat-label>Email</mat-label>
+          <input
+            matInput
+            [(ngModel)]="email"
+            name="email"
+            type="email"
+            required
+            email
+            #emailInput="ngModel"
+            (keypress)="onKeyPress($event)"
+          />
+          <mat-error *ngIf="emailInput.invalid && emailInput.touched">
+            Please enter a valid email.
+          </mat-error>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline" class="auth-input">
-        <mat-label>Password</mat-label>
-        <input
-          matInput
-          [(ngModel)]="password"
-          type="password"
-          required
-          (keypress)="onKeyPress($event)"
-        />
-      </mat-form-field>
+        <mat-form-field appearance="outline" class="auth-input">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            [(ngModel)]="password"
+            name="password"
+            type="password"
+            required
+            minlength="6"
+            #passwordInput="ngModel"
+            (keypress)="onKeyPress($event)"
+          />
+          <mat-error *ngIf="passwordInput.invalid && passwordInput.touched">
+            Password must be at least 6 characters.
+          </mat-error>
+        </mat-form-field>
 
-      <button
-        mat-flat-button
-        color="primary"
-        class="auth-button"
-        (click)="onRegister()"
-        [disabled]="loading"
-      >
-        <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
-        <span *ngIf="!loading">Register</span>
-      </button>
+        <button
+          mat-flat-button
+          color="primary"
+          class="auth-button"
+          (click)="onRegister()"
+          [disabled]="registerForm.invalid || loading"
+        >
+          <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+          <span *ngIf="!loading">Register</span>
+        </button>
+      </form>
 
       <p class="auth-text">
         Already have an account?
