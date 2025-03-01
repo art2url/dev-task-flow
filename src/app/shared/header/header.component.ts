@@ -21,19 +21,23 @@ export class HeaderComponent {
   get isAuthPage(): boolean {
     return (
       this.router.url.includes('/login') ||
-      this.router.url.includes('/register')
+      this.router.url.includes('/register') ||
+      this.router.url.includes('/forgot-password')
     );
   }
 
   get title(): string {
-    if (this.router.url.includes('/login')) return 'Login';
-    if (this.router.url.includes('/register')) return 'Register';
+    if (this.router.url.includes('/login')) return 'DevTaskFlow - Login';
+    if (this.router.url.includes('/register')) return 'DevTaskFlow - Register';
+    if (this.router.url.includes('/forgot-password'))
+      return 'DevTaskFlow - Forgot Password';
     return 'DevTaskFlow - Task Manager';
   }
 
   get buttonLabel(): string {
     if (this.router.url.includes('/login')) return 'Register';
     if (this.router.url.includes('/register')) return 'Login';
+    if (this.router.url.includes('/forgot-password')) return 'Back to Login';
     return localStorage.getItem('authToken') ? 'Logout' : 'Login';
   }
 
@@ -41,6 +45,8 @@ export class HeaderComponent {
     if (this.router.url.includes('/login')) {
       this.router.navigate(['/register']);
     } else if (this.router.url.includes('/register')) {
+      this.router.navigate(['/login']);
+    } else if (this.router.url.includes('/forgot-password')) {
       this.router.navigate(['/login']);
     } else {
       if (localStorage.getItem('authToken')) {
