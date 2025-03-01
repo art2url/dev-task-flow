@@ -65,12 +65,17 @@
           <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
           <span *ngIf="!loading">Register</span>
         </button>
-      </form>
 
-      <p class="auth-text">
-        Already have an account?
-        <a routerLink="/login">Login here</a>
-      </p>
+        <p class="auth-text error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+          <a routerLink="/forgot-password">Forgot password?</a>
+        </p>
+
+        <p class="auth-text" *ngIf="!errorMessage">
+          Already have an account?
+          <a routerLink="/login">Login here</a>
+        </p>
+      </form>
     </mat-card-content>
   </mat-card>
 </div>
