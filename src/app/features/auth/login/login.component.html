@@ -5,12 +5,24 @@
     <mat-card-content>
       <mat-form-field appearance="outline" class="auth-input">
         <mat-label>Email</mat-label>
-        <input matInput [(ngModel)]="email" type="email" required />
+        <input
+          matInput
+          [(ngModel)]="email"
+          type="email"
+          required
+          (keypress)="onKeyPress($event)"
+        />
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="auth-input">
         <mat-label>Password</mat-label>
-        <input matInput [(ngModel)]="password" type="password" required />
+        <input
+          matInput
+          [(ngModel)]="password"
+          type="password"
+          required
+          (keypress)="onKeyPress($event)"
+        />
       </mat-form-field>
 
       <button
@@ -18,8 +30,10 @@
         color="primary"
         class="auth-button"
         (click)="onLogin()"
+        [disabled]="loading"
       >
-        Login
+        <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+        <span *ngIf="!loading">Login</span>
       </button>
 
       <p class="auth-text">
