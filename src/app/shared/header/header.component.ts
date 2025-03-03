@@ -14,7 +14,6 @@ import { MatButtonModule } from '@angular/material/button';
 export class HeaderComponent {
   @Input() showForm: boolean = true;
   @Output() toggleForm = new EventEmitter<void>();
-  @Output() logout = new EventEmitter<void>();
 
   constructor(private router: Router, private route: ActivatedRoute) {}
 
@@ -51,7 +50,7 @@ export class HeaderComponent {
     } else {
       if (localStorage.getItem('authToken')) {
         localStorage.removeItem('authToken');
-        this.logout.emit();
+        this.router.navigate(['/login']);
       } else {
         this.router.navigate(['/login']);
       }
