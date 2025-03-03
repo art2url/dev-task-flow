@@ -36,12 +36,9 @@ export class ForgotPasswordComponent {
   email = '';
   loading = false;
   errorMessage = '';
+  successMessage = '';
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private dialog: MatDialog
-  ) {}
+  constructor(private http: HttpClient) {}
 
   onResetPassword(): void {
     if (!this.email) return;
@@ -54,19 +51,16 @@ export class ForgotPasswordComponent {
       )
       .subscribe({
         next: (response) => {
-          this.dialog.open(ConfirmDialogComponent, {
-            width: '350px',
-            data: {
-              title: 'New Password Sent',
-              message: response.message,
-            },
-          });
-          this.router.navigate(['/login']);
+          this.loading = false;
+          this.successMessage = response.message;
+          this.errorMessage = '';
         },
         error: () => {
-          this.errorMessage = 'User not found. Please check your email.';
           this.loading = false;
+          this.errorMessage = 'User not found. Please check your email.';
+          this.successMessage = '';
         },
+        complete: () => (this.loading = false),
       });
   }
 
