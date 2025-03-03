@@ -2,16 +2,35 @@
   <span>{{ title }}</span>
   <span class="spacer"></span>
 
-  <button
-    *ngIf="!isAuthPage"
-    mat-button
-    color="accent"
-    (click)="toggleForm.emit()"
-  >
-    {{ showForm ? "⌝ Hide Task Form ⌜" : "⌟ Show Task Form ⌞" }}
+  <button mat-icon-button class="menu-button" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
   </button>
 
-  <button mat-button color="accent" (click)="onButtonClick()">
-    {{ buttonLabel }}
-  </button>
+  <div class="menu-container" *ngIf="isMenuOpen">
+    <button mat-button (click)="onButtonClick()">
+      <mat-icon>logout</mat-icon> Logout
+    </button>
+    <button mat-button *ngIf="!isAuthPage" (click)="toggleForm.emit()">
+      <mat-icon>{{ showForm ? "visibility_off" : "visibility" }}</mat-icon>
+      {{ showForm ? "Hide Form" : "Show Form" }}
+    </button>
+    <button mat-button (click)="toggleTheme()">
+      <mat-icon>brightness_6</mat-icon> White/Black
+    </button>
+  </div>
+
+  <ng-container *ngIf="!isSmallScreen">
+    <button
+      *ngIf="!isAuthPage"
+      mat-button
+      color="accent"
+      (click)="toggleForm.emit()"
+    >
+      {{ showForm ? "Hide Form" : "Show Form" }}
+    </button>
+
+    <button mat-button color="accent" (click)="onButtonClick()">
+      {{ buttonLabel }}
+    </button>
+  </ng-container>
 </mat-toolbar>

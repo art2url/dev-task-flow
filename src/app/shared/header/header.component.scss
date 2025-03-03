@@ -1,3 +1,51 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+.menu-button {
+  display: none;
+}
+
+.menu-container {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 50px;
+  background: #101414;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  z-index: 1000;
+}
+
+.menu-container button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  transition: background 0.2s ease-in-out;
+}
+
+.menu-container mat-icon {
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .menu-button {
+    display: block;
+  }
+
+  .menu-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  ng-container {
+    display: none;
+  }
+}

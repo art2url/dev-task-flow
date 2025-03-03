@@ -1,13 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -15,7 +22,10 @@ export class HeaderComponent {
   @Input() showForm: boolean = true;
   @Output() toggleForm = new EventEmitter<void>();
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  isMenuOpen = false;
+  isSmallScreen = window.innerWidth <= 768;
+
+  constructor(private router: Router) {}
 
   get isAuthPage(): boolean {
     return (
@@ -55,5 +65,18 @@ export class HeaderComponent {
         this.router.navigate(['/login']);
       }
     }
+  }
+
+  toggleMenu(): void {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  toggleTheme(): void {
+    console.log('Theme toggle clicked! (To be implemented)');
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isSmallScreen = window.innerWidth <= 768;
   }
 }
