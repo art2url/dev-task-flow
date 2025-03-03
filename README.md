@@ -1,113 +1,122 @@
 # DevTaskFlow
 
-DevTaskFlow is a task management application built with **Angular** and **Angular Material**. It provides robust features like task creation, editing, filtering, sorting, priority management, and responsive UI. The application is designed to demonstrate key Angular functionalities with clean UI/UX.
+DevTaskFlow is a task management application built with Angular and Node.js, featuring user authentication, task filtering, sorting, and management capabilities. The app includes login, registration, password recovery, and authentication guards for secured access.
 
----
+## Features
 
-## 🚀 **Features**
+### ✅ Task Management
 
-- ✅ **Task Management**: Create, edit, delete, and mark tasks as completed.
-- 🔄 **Filtering**: Filter tasks by completion status and search by title or description.
-- 🔢 **Sorting**:
-  - Sort by **date** (Newest, Oldest, Unsorted).
-  - Sort by **priority** (High to Low, Low to High).
-- 🎨 **Task Priority Highlighting**: Visual borders indicating priority (Red: High, Orange: Medium, Green: Low).
-- 📊 **Progress Tracking**: Progress bar displaying overall task completion.
-- 🔄 **Pagination**: Paginate tasks with customizable page sizes.
-- 📱 **Responsive UI**: Fully responsive design for all screen sizes with advanced layout handling.
-- 🎛 **Advanced Filtering**: Real-time search filtering by task title and description.
+- Add, edit, delete, and complete tasks
+- Task priority system (Low, Medium, High)
+- Task filtering by completion status, priority, and overdue deadlines
+- Task sorting by date and priority
+- Pinned tasks feature
+- Pagination for tasks
 
----
+### ✅ Authentication
 
-## 🏗 **Tech Stack**
+- User registration and login using MongoDB
+- Password hashing with bcrypt
+- JWT-based authentication with token storage
+- Forgot password feature (sends a new password via email)
+- Route guard to protect task management routes
+- Logout functionality
 
-- **Frontend**: Angular (standalone components), Angular Material
-- **Styling**: SCSS with variables and responsive design
-- **State Management**: Component-driven with observable streams
-- **Persistence**: LocalStorage for task data persistence
+### ✅ UI & UX
 
----
+- Angular Material design
+- Responsive UI with dynamic theme switching
+- Form validation with proper error handling
+- Preloaders for login, registration, and password recovery
+- Confirmation dialogs for critical actions (e.g., deleting all tasks)
 
-## ⚙ **Installation & Usage**
+## Tech Stack
 
-### 1️⃣ **Clone the repository**
-```bash
-git clone https://github.com/art2url/dev-task-flow.git
-cd dev-task-flow
-```
+- **Frontend:** Angular 16, Angular Material
+- **Backend:** Node.js, Express.js, MongoDB (Mongoose)
+- **Authentication:** JWT, bcrypt.js
+- **Email Service:** Nodemailer with AOL SMTP
+- **Hosting:** Vercel (Frontend), Render (Backend)
 
-### 2️⃣ **Install dependencies**
-```bash
-npm install
-```
+## Installation & Setup
 
-### 3️⃣ **Run the application**
-```bash
-ng serve
-```
-> 🚀 Open [http://localhost:4200](http://localhost:4200) to view it in the browser.
+### Backend Setup
 
-### 4️⃣ **Build for production**
-```bash
-ng build
-```
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/art2url/dev-task-flow-auth-server.git
+   cd dev-task-flow-auth-server
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Create a `.env` file in the root directory and add:
+   ```env
+   PORT=3000
+   MONGO_URI=your-mongodb-connection-string
+   JWT_SECRET=your-secret-key
+   EMAIL_USER=your-email@example.com
+   EMAIL_PASS=your-email-password
+   ```
+4. Start the server:
+   ```sh
+   npm start
+   ```
+   The server will run at `http://localhost:3000`.
 
----
+### Frontend Setup
 
-## 🎨 **Design & Styling**
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/art2url/dev-task-flow.git
+   cd dev-task-flow
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+3. Start the application:
+   ```sh
+   ng serve
+   ```
+   The app will run at `http://localhost:4200`.
 
-- **Theme**: Cyan/Orange Angular Material prebuilt theme.
-- **SCSS**: Utilizes variables, responsive mixins, and flexible grid-based layouts.
-- **Responsive Design**: Optimized for mobile (600px), tablet (768px–1024px), and desktop (>1240px).
+## Deployment
 
----
+- **Frontend:** Hosted on Vercel at [https://dev-task-flow.vercel.app](https://dev-task-flow.vercel.app)
+- **Backend:** Hosted on Render at [https://dev-task-flow-auth-server.onrender.com](https://dev-task-flow-auth-server.onrender.com)
 
-## 🧪 **Testing** (in future updates)
+## Routes
 
-- Run unit tests using:
-```bash
-ng test
-```
+### Backend API Endpoints
 
-- Uses Jasmine and Karma for testing components, services, and filtering/sorting logic.
+| Method | Endpoint           | Description                       |
+| ------ | ------------------ | --------------------------------- |
+| `POST` | `/register`        | Register a new user               |
+| `POST` | `/login`           | Login user & return JWT           |
+| `GET`  | `/profile`         | Get user profile (protected)      |
+| `POST` | `/forgot-password` | Send a new password to user email |
 
----
+### Frontend Routes
 
-## 🎯 **Planned Features**
+| Path               | Component               | Description                   |
+| ------------------ | ----------------------- | ----------------------------- |
+| `/tasks`           | TaskListComponent       | Main task manager (protected) |
+| `/login`           | LoginComponent          | User login page               |
+| `/register`        | RegisterComponent       | User registration page        |
+| `/forgot-password` | ForgotPasswordComponent | Password reset page           |
 
-- [ ] **Drag & Drop**: Task reordering with Angular CDK.
-- [ ] **Theme Toggle**: Light/Dark theme support.
-- [ ] **Subtasks**: Hierarchical task management.
-- [ ] **Deadline Tracking**: Visual indicators for upcoming deadlines.
-- [ ] **NgRx State Management**: For scalable state handling.
-- [ ] **PWA Support**: Offline accessibility and PWA features.
+## Future Improvements
 
----
+- Menu
+- Dark/White mode toggle
 
-## 🤝 **Contributing**
+## Contributing
 
-1. Fork the repository.
-2. Create your feature branch: `git checkout -b feature/YourFeatureName`
-3. Commit your changes: `git commit -m 'feat: Add some feature'`
-4. Push to the branch: `git push origin feature/YourFeatureName`
-5. Open a pull request.
+Pull requests are welcome! Please ensure your changes align with the existing architecture and maintain code quality.
 
----
+## License
 
-## 📜 **License**
-
-Distributed under the **MIT License**. See `LICENSE` for more information.
-
----
-
-## 🙌 **Acknowledgments**
-
-- [Angular Documentation](https://angular.io/docs)
-- [Angular Material](https://material.angular.io/)
-- [SCSS Guidelines](https://sass-lang.com/guide/)
-- [RxJS Documentation](https://rxjs.dev/)
-
----
-
-✨ **DevTaskFlow** – Empowering developers to stay organized! ✨
+This project is licensed under the MIT License.
 
