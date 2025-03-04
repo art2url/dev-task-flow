@@ -8,7 +8,7 @@
 
   <div class="menu-container" *ngIf="isMenuOpen">
     <button mat-button (click)="onButtonClick()">
-      <mat-icon>logout</mat-icon> Logout
+      <mat-icon>{{ menuIcon }}</mat-icon> {{ buttonLabel }}
     </button>
     <button mat-button *ngIf="!isAuthPage" (click)="toggleForm.emit()">
       <mat-icon>{{ showForm ? "visibility_off" : "visibility" }}</mat-icon>

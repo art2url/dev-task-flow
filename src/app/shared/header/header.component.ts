@@ -7,6 +7,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
+// Angular Material Imports
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -48,6 +50,13 @@ export class HeaderComponent {
     if (this.router.url.includes('/register')) return 'Login';
     if (this.router.url.includes('/forgot-password')) return 'Back to Login';
     return localStorage.getItem('authToken') ? 'Logout' : 'Login';
+  }
+
+  get menuIcon(): string {
+    if (this.router.url.includes('/login')) return 'person_add';
+    if (this.router.url.includes('/register')) return 'login';
+    if (this.router.url.includes('/forgot-password')) return 'arrow_back';
+    return localStorage.getItem('authToken') ? 'logout' : 'login';
   }
 
   onButtonClick(): void {
