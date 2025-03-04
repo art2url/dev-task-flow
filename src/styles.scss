@@ -16,7 +16,21 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .main-container {
+  flex: 1;
   max-width: 1375px;
   margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
