@@ -49,6 +49,25 @@ mat-card-content {
   margin-top: 20px;
 }
 
+.completed-task {
+  transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out,
+    box-shadow 0.5s ease-in-out;
+  background-color: rgba(30, 30, 30, 0.2);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important;
+  opacity: 0.8;
+}
+
+.completed-task .task-title {
+  text-decoration: line-through;
+  color: rgba(255, 255, 255, 0.6);
+  transition: color 0.5s ease-in-out, text-decoration 0.5s ease-in-out;
+}
+
+.completed-task .task-subtitle {
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.5s ease-in-out;
+}
+
 .task-card {
   display: flex;
   flex-direction: column;
@@ -98,11 +117,6 @@ mat-card-content {
 .delete-text {
   color: $alert-text;
   font-weight: bold;
-}
-
-.white-text {
-  color: white;
-  font-weight: normal;
 }
 
 .paginator-container {

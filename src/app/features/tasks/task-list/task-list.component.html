@@ -27,7 +27,7 @@
     *ngFor="let task of filteredTasks"
     class="task-card priority-{{ task.priority }} {{
       task.pinned ? 'pinned-task' : ''
-    }}"
+    }} {{ task.completed ? 'completed-task' : '' }}"
   >
     <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
     <mat-card-subtitle class="task-subtitle">
@@ -45,10 +45,10 @@
     <mat-divider class="divider"></mat-divider>
     <mat-card-actions class="task-handler">
       <button mat-button (click)="toggleTaskCompletion(task)">
-        <mat-icon [ngStyle]="{ color: task.completed ? 'cyan' : 'white' }">
+        <mat-icon [ngStyle]="{ color: task.completed ? 'cyan' : '#e0e3e2' }">
           {{ task.completed ? "check_box" : "check_box_outline_blank" }}
         </mat-icon>
-        <span class="white-text">
+        <span [ngStyle]="{ color: task.completed ? 'cyan' : '#e0e3e2' }">
           {{ task.completed ? "Completed" : "Mark Complete" }}
         </span>
       </button>
