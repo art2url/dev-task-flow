@@ -49,10 +49,10 @@
 
 .error-message {
   font-weight: normal;
-  color: #ffb4ab;
+  color: $alert-text;
 }
 
 .success-message {
   font-weight: normal;
-  color: #b4f788;
+  color: $green;
 }

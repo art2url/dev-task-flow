@@ -44,21 +44,40 @@
 
     <mat-divider class="divider"></mat-divider>
     <mat-card-actions class="task-handler">
-      <mat-checkbox
-        [checked]="task.completed"
-        (change)="toggleTaskCompletion(task)"
-      >
-        Completed
-      </mat-checkbox>
+      <button mat-button (click)="toggleTaskCompletion(task)">
+        <mat-icon [ngStyle]="{ color: task.completed ? 'cyan' : 'white' }">
+          {{ task.completed ? "check_box" : "check_box_outline_blank" }}
+        </mat-icon>
+        <span class="white-text">
+          {{ task.completed ? "Completed" : "Mark Complete" }}
+        </span>
+      </button>
+
       <span class="spacer"></span>
 
-      <button mat-button (click)="togglePin(task)">
-        {{ task.pinned ? "Unpin" : "Pin" }}
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
-      <button mat-button color="primary" (click)="startEdit(task)">Edit</button>
-      <button mat-button color="warn" (click)="deleteTask(task.id)">
-        Delete
-      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="togglePin(task)">
+          <mat-icon>{{
+            task.pinned ? "push_pin" : "push_pin_outlined"
+          }}</mat-icon>
+          <span> {{ task.pinned ? "Unpin" : "Pin" }} </span>
+        </button>
+        <button mat-menu-item (click)="startEdit(task)">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+        <button
+          mat-menu-item
+          class="delete-button"
+          (click)="deleteTask(task.id)"
+        >
+          <mat-icon color="warn">delete</mat-icon>
+          <span class="delete-text">Delete</span>
+        </button>
+      </mat-menu>
     </mat-card-actions>
   </mat-card>
 </div>

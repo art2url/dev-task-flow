@@ -1,3 +1,4 @@
+import { MatMenuModule } from '@angular/material/menu';
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../task.service';
@@ -21,6 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-task-list',
@@ -43,6 +45,8 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
     MatPaginatorModule,
     MatInputModule,
     MatDialogModule,
+    MatIconModule,
+    MatMenuModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',

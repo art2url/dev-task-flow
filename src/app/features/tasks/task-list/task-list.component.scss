@@ -2,7 +2,7 @@
 @import "variables";
 
 mat-card-content {
-  margin-top: math.div($spacing, 2);
+  margin-bottom: math.div($spacing, 1);
   font-size: 14px;
   color: $text-color;
   line-height: 1.4;
@@ -19,25 +19,6 @@ mat-card-content {
   }
 }
 
-.task-form-card {
-  background-color: var(--mat-sys-primary);
-  box-shadow: $card-shadow;
-  margin-bottom: 20px;
-  border-radius: 8px;
-  padding: $spacing;
-}
-
-.task-input {
-  width: 100%;
-  margin-bottom: math.div($spacing, 2);
-}
-
-.task-buttons {
-  display: flex;
-  justify-content: flex-end;
-  padding: math.div($spacing, 2);
-}
-
 .task-title {
   color: $primary-color;
   padding: math.div($spacing, 2);
@@ -45,10 +26,11 @@ mat-card-content {
 }
 
 .task-subtitle {
+  margin-top: math.div($spacing, 2);
   padding: math.div($spacing, 2);
 
   .overdue {
-    color: #f15152;
+    color: $red;
     font-weight: bold;
   }
 }
@@ -84,18 +66,19 @@ mat-card-content {
   }
 
   &.priority-Low {
-    border-left: 5px solid #4d8b31;
+    border-left: 2px solid $green;
   }
   &.priority-Medium {
-    border-left: 5px solid #ffc857;
+    border-left: 2px solid $orange;
   }
   &.priority-High {
-    border-left: 5px solid #f15152;
+    border-left: 2px solid $red;
   }
 
   mat-card-content {
     flex: 1 1 auto;
   }
+
   .divider,
   .task-handler {
     margin-top: auto;
@@ -110,6 +93,16 @@ mat-card-content {
   .spacer {
     flex: 1 1 auto;
   }
+}
+
+.delete-text {
+  color: $alert-text;
+  font-weight: bold;
+}
+
+.white-text {
+  color: white;
+  font-weight: normal;
 }
 
 .paginator-container {
