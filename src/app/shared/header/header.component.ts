@@ -52,13 +52,6 @@ export class HeaderComponent {
     return localStorage.getItem('authToken') ? 'Logout' : 'Login';
   }
 
-  get menuIcon(): string {
-    if (this.router.url.includes('/login')) return 'person_add';
-    if (this.router.url.includes('/register')) return 'login';
-    if (this.router.url.includes('/forgot-password')) return 'arrow_back';
-    return localStorage.getItem('authToken') ? 'logout' : 'login';
-  }
-
   onButtonClick(): void {
     if (this.router.url.includes('/login')) {
       this.router.navigate(['/register']);
