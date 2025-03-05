@@ -93,10 +93,9 @@
   </ng-template>
 </div>
 
-<div
-  class="paginator-container container"
-  *ngIf="!isLoading && tasks.length > 5"
->
+<div class="divider-pagi" *ngIf="!isLoading && tasks.length > 5"></div>
+
+<div class="paginator-container container">
   <mat-paginator
     [length]="filteredTasksOriginal.length"
     [pageSize]="pageSize"
@@ -111,6 +110,7 @@
     mat-button
     color="warn"
     (click)="openDeleteConfirmationDialog()"
+    *ngIf="isWideScreen"
   >
     Clear All
   </button>

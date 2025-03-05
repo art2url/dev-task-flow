@@ -53,6 +53,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   styleUrl: './task-list.component.scss',
 })
 export class TaskListComponent implements OnInit, AfterViewInit {
+  isWideScreen: boolean = true;
   tasks: Task[] = [];
   filteredTasks: Task[] = [];
   filteredTasksOriginal: Task[] = [];
@@ -67,10 +68,14 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     public taskService: TaskService,
     private dialog: MatDialog,
     public showFormService: ShowFormService
-  ) {}
+  ) {
+    this.checkScreenSize();
+  }
 
   ngOnInit(): void {
     this.isLoading = true;
+
+    window.addEventListener('resize', () => this.checkScreenSize());
 
     this.showFormService.showForm$.subscribe((value) => {
       this.showForm = value;
@@ -100,6 +105,10 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => this.calculateProgress(), 0);
+  }
+
+  checkScreenSize(): void {
+    this.isWideScreen = window.innerWidth > 525;
   }
 
   onFilteredTasksChange(newList: Task[]): void {

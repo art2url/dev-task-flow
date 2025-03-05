@@ -5,8 +5,7 @@
   background-color: #181a1a;
   color: var(--mat-toolbar-container-text-color);
   padding: 32px 0;
-  position: fixed;
-  bottom: 0;
+  position: relative;
   width: 100%;
   z-index: 1;
 }
