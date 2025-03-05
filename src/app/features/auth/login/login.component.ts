@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from '../../../shared/header/header.component';
 
 // Angular Material Imports
 import { MatCardModule } from '@angular/material/card';
@@ -12,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-login',
@@ -20,12 +20,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     FormsModule,
     RouterModule,
-    HeaderComponent,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatDividerModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',

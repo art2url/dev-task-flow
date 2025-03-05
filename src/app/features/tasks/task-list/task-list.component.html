@@ -1,10 +1,3 @@
-<app-header
-  [showForm]="showForm"
-  (toggleForm)="toggleFormVisibility()"
-  (clearAllClicked)="openDeleteConfirmationDialog()"
-  (loginClicked)="onLoginClicked()"
-></app-header>
-
 <div class="progress-bar-wrapper">
   <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
 </div>
@@ -19,10 +12,11 @@
 <app-task-controls
   [tasks]="tasks"
   (filteredTasksChange)="onFilteredTasksChange($event)"
+  (clearAllClicked)="openDeleteConfirmationDialog()"
 >
 </app-task-controls>
 
-<div class="task-list" *ngIf="filteredTasks.length > 0; else noTasks">
+<div class="task-list container" *ngIf="filteredTasks.length > 0; else noTasks">
   <mat-card
     *ngFor="let task of filteredTasks"
     class="task-card priority-{{ task.priority }} {{
@@ -82,7 +76,7 @@
   </mat-card>
 </div>
 
-<div class="paginator-container" *ngIf="tasks.length > 5">
+<div class="paginator-container container" *ngIf="tasks.length > 5">
   <mat-paginator
     [length]="filteredTasksOriginal.length"
     [pageSize]="pageSize"

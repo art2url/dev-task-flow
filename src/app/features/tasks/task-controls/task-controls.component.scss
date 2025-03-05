@@ -1,11 +1,22 @@
 @use "sass:math";
 @import "variables";
 
+.container {
+  margin: 0 16px;
+
+  @media (max-width: 1024px) {
+    margin: 0 8px;
+  }
+
+  @media (max-width: 768) {
+    margin: 0 4px;
+  }
+}
+
 .controls {
   display: flex;
   flex-wrap: wrap;
   gap: $spacing;
-  justify-content: space-between;
   padding: $spacing;
   margin-top: 30px;
 

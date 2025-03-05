@@ -1,8 +1,7 @@
 import { MatMenuModule } from '@angular/material/menu';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService } from '../task.service';
-import { HeaderComponent } from '../../../shared/header/header.component';
 import { Task } from '../models/task.model';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
@@ -23,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { ShowFormService } from '../../../shared/services/show-form.service';
 
 @Component({
   selector: 'app-task-list',
@@ -31,7 +31,6 @@ import { MatIconModule } from '@angular/material/icon';
     CommonModule,
     FormsModule,
     TaskFormComponent,
-    HeaderComponent,
     TaskControlsComponent,
     MatToolbarModule,
     MatButtonModule,
@@ -61,9 +60,17 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   pageSize: number = 6;
   showForm = true;
 
-  constructor(public taskService: TaskService, private dialog: MatDialog) {}
+  constructor(
+    public taskService: TaskService,
+    private dialog: MatDialog,
+    public showFormService: ShowFormService
+  ) {}
 
   ngOnInit(): void {
+    this.showFormService.showForm$.subscribe((value) => {
+      this.showForm = value;
+    });
+
     this.taskService.tasks$.subscribe((tasks) => {
       this.tasks = tasks.map((task) => ({
         ...task,
@@ -137,10 +144,6 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     return task.deadline
       ? new Date(task.deadline) < new Date() && !task.completed
       : false;
-  }
-
-  toggleFormVisibility(): void {
-    this.showForm = !this.showForm;
   }
 
   clearAllTasks(): void {

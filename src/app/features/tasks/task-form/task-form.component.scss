@@ -6,11 +6,21 @@ mat-card-content {
 }
 
 .task-form-card {
-  margin-left: math.div($spacing, 1);
-  margin-right: math.div($spacing, 1);
+  margin-left: math.div($spacing, 0.5);
+  margin-right: math.div($spacing, 0.5);
   box-shadow: $card-shadow;
   border-radius: 0px 0px $spacing $spacing;
   padding: $spacing $spacing 0 $spacing;
+
+  @media (max-width: 1024px) {
+    margin-left: 24px;
+    margin-right: 24px;
+    padding: 8px 8px 0 8px;
+  }
+
+  @media (max-width: 768) {
+    margin: 0 4px;
+  }
 }
 
 .task-buttons {

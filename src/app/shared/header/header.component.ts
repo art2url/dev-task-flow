@@ -1,10 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-  HostListener,
-} from '@angular/core';
+import { Component, Input, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -12,22 +6,32 @@ import { Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDivider } from '@angular/material/divider';
+import { ShowFormService } from '../services/show-form.service';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDivider,
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Input() showForm: boolean = true;
-  @Output() toggleForm = new EventEmitter<void>();
+  @Input() showForm!: boolean;
 
   isMenuOpen = false;
   isSmallScreen = window.innerWidth <= 768;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    public showFormService: ShowFormService
+  ) {}
 
   get isAuthPage(): boolean {
     return (
@@ -67,6 +71,10 @@ export class HeaderComponent {
         this.router.navigate(['/login']);
       }
     }
+  }
+
+  toggleTaskForm(): void {
+    this.showFormService.toggleForm();
   }
 
   toggleMenu(): void {

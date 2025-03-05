@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { RouterModule } from '@angular/router';
-import { HeaderComponent } from '../../../shared/header/header.component';
 
 // Angular Material Imports
 import { MatCardModule } from '@angular/material/card';
@@ -20,7 +19,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     FormsModule,
     RouterModule,
-    HeaderComponent,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
