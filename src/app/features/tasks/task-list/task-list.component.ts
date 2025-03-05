@@ -1,8 +1,9 @@
 import { MatMenuModule } from '@angular/material/menu';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskService } from '../task.service';
 import { Task } from '../models/task.model';
+import { TaskService } from '../task.service';
+import { ShowFormService } from '../../../shared/services/show-form.service';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { FormsModule } from '@angular/forms';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -22,7 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { ShowFormService } from '../../../shared/services/show-form.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-task-list',
@@ -46,6 +47,7 @@ import { ShowFormService } from '../../../shared/services/show-form.service';
     MatDialogModule,
     MatIconModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
@@ -59,6 +61,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   pageIndex: number = 0;
   pageSize: number = 6;
   showForm = true;
+  isLoading = true;
 
   constructor(
     public taskService: TaskService,
@@ -67,11 +70,17 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
+
     this.showFormService.showForm$.subscribe((value) => {
       this.showForm = value;
     });
 
     this.taskService.tasks$.subscribe((tasks) => {
+      if (tasks.length === 0) {
+        this.isLoading = true;
+      }
+
       this.tasks = tasks.map((task) => ({
         ...task,
         createdAt: new Date(task.createdAt),
@@ -80,7 +89,13 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       this.filteredTasks = [...this.tasks];
       this.filteredTasksOriginal = [...this.tasks];
       this.calculateProgress();
+
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 1000);
     });
+
+    this.taskService.fetchTasks();
   }
 
   ngAfterViewInit(): void {
@@ -94,8 +109,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   }
 
   togglePin(task: Task): void {
-    const updatedTask = { ...task, pinned: !task.pinned };
-    this.taskService.updateTask(updatedTask);
+    this.taskService.togglePin(task);
   }
 
   calculateProgress(): void {
@@ -118,14 +132,12 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     this.taskToEdit = { ...task };
   }
 
-  deleteTask(taskId: number): void {
+  deleteTask(taskId: string): void {
     this.taskService.deleteTask(taskId);
   }
 
   toggleTaskCompletion(task: Task): void {
-    const updatedTask = { ...task, completed: !task.completed };
-    this.taskService.updateTask(updatedTask);
-    this.calculateProgress();
+    this.taskService.toggleTaskCompletion(task);
   }
 
   onPageChange(event: any): void {
@@ -169,7 +181,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     });
   }
 
-  onLoginClicked(): void {
-    console.log('Login button clicked!');
+  trackByTaskId(index: number, task: Task): string {
+    return task._id;
   }
 }
