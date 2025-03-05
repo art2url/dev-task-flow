@@ -10,6 +10,5 @@ export class ShowFormService {
 
   toggleForm(): void {
     this.showFormSubject.next(!this.showFormSubject.value);
-    console.log('Toggled showForm:', this.showFormSubject.value);
   }
 }

@@ -23,15 +23,15 @@ import { ShowFormService } from '../services/show-form.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  @Input() showForm!: boolean;
-
+  showForm: boolean = true;
   isMenuOpen = false;
   isSmallScreen = window.innerWidth <= 768;
 
-  constructor(
-    private router: Router,
-    public showFormService: ShowFormService
-  ) {}
+  constructor(private router: Router, public showFormService: ShowFormService) {
+    this.showFormService.showForm$.subscribe(
+      (value) => (this.showForm = value)
+    );
+  }
 
   get isAuthPage(): boolean {
     return (
