@@ -82,7 +82,7 @@ export class TaskFormComponent implements OnChanges {
     if (!this.title.trim()) return;
 
     const updatedTask: Task = {
-      id: this.taskToEdit ? this.taskToEdit.id : Date.now(),
+      _id: this.taskToEdit ? this.taskToEdit._id : Date.now().toString(),
       title: this.title,
       description: this.description,
       completed: this.taskToEdit ? this.taskToEdit.completed : false,
