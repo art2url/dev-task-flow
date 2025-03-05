@@ -36,6 +36,7 @@
       [(ngModel)]="prioritySortOrder"
       (ngModelChange)="onFilterChanged()"
     >
+      <mat-option value="unsorted">Unsorted</mat-option>
       <mat-option value="priority-high">Priority: High to Low</mat-option>
       <mat-option value="priority-low">Priority: Low to High</mat-option>
     </mat-select>
