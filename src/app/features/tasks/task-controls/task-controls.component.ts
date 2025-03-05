@@ -33,7 +33,7 @@ export class TaskControlsComponent implements OnChanges {
   @Output() filteredTasksChange = new EventEmitter<Task[]>();
 
   filterStatus: string = 'all';
-  dateSortOrder: string = 'newest';
+  dateSortOrder: string = 'unsorted';
   prioritySortOrder: string = 'priority-high';
   searchQuery: string = '';
 
@@ -50,9 +50,9 @@ export class TaskControlsComponent implements OnChanges {
   private applyAllFilters(): void {
     let result = [...this.tasks];
     result = this.filterTasks(result);
-    result = this.sortByPriority(result);
     result = this.sortByDate(result);
     result = this.pinTasksFirst(result);
+    result = this.sortByPriority(result);
     this.filteredTasksChange.emit(result);
   }
 
@@ -77,25 +77,30 @@ export class TaskControlsComponent implements OnChanges {
   }
 
   private sortByPriority(list: Task[]): Task[] {
-    const priorityOrder = { High: 1, Medium: 2, Low: 3 };
-    if (this.prioritySortOrder === 'priority-high') {
-      return list.sort(
-        (a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]
-      );
-    } else {
-      return list.sort(
-        (a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]
-      );
+    if (this.prioritySortOrder === 'unsorted') {
+      return list;
     }
+
+    const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+
+    return list.sort((a, b) =>
+      this.prioritySortOrder === 'priority-high'
+        ? priorityOrder[a.priority] - priorityOrder[b.priority]
+        : priorityOrder[b.priority] - priorityOrder[a.priority]
+    );
   }
 
   private sortByDate(list: Task[]): Task[] {
-    if (this.dateSortOrder === 'newest') {
-      return list.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
-    } else if (this.dateSortOrder === 'oldest') {
-      return list.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+    if (this.dateSortOrder === 'unsorted') {
+      return list;
     }
-    return list;
+
+    return list.sort((a, b) => {
+      const dateA = new Date(a.createdAt).getTime();
+      const dateB = new Date(b.createdAt).getTime();
+
+      return this.dateSortOrder === 'newest' ? dateB - dateA : dateA - dateB;
+    });
   }
 
   private pinTasksFirst(list: Task[]): Task[] {
