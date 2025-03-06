@@ -3,31 +3,29 @@
     <span>{{ title }}</span>
     <span class="spacer"></span>
 
-    <!-- Hamburger Menu for Small Screens -->
-    <button
-      mat-icon-button
-      class="menu-button"
-      (click)="toggleMenu()"
-      *ngIf="isSmallScreen"
-    >
+    <!-- Mobile Menu Button -->
+    <button mat-icon-button (click)="toggleMenu()" *ngIf="isSmallScreen">
       <mat-icon>menu</mat-icon>
     </button>
 
+    <!-- Mobile Menu -->
     <div class="menu-container" *ngIf="isSmallScreen && isMenuOpen">
       <button mat-button (click)="onButtonClick()">
         <mat-icon>{{ isAuthPage ? "login" : "logout" }}</mat-icon>
         {{ buttonLabel }}
       </button>
+
+      <button mat-button (click)="toggleTheme()">
+        <mat-icon>brightness_6</mat-icon> Toggle Theme
+      </button>
+
       <button mat-button *ngIf="!isAuthPage" (click)="toggleTaskForm()">
         <mat-icon>{{ showForm ? "visibility_off" : "visibility" }}</mat-icon>
         {{ showForm ? "Hide Form" : "Show Form" }}
       </button>
-      <button mat-button (click)="toggleTheme()">
-        <mat-icon>brightness_6</mat-icon> White/Black
-      </button>
     </div>
 
-    <!-- Full-size Toolbar Buttons for Larger Screens -->
+    <!-- Desktop Buttons -->
     <ng-container *ngIf="!isSmallScreen">
       <button mat-button *ngIf="!isAuthPage" (click)="toggleTaskForm()">
         <mat-icon>{{ showForm ? "visibility_off" : "visibility" }}</mat-icon>
@@ -35,7 +33,7 @@
       </button>
 
       <button mat-button (click)="toggleTheme()">
-        <mat-icon>brightness_6</mat-icon> White/Black
+        <mat-icon>brightness_6</mat-icon> Toggle Theme
       </button>
 
       <button mat-button (click)="onButtonClick()">
