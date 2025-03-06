@@ -44,7 +44,7 @@
   color: var(--mat-toolbar-container-text-color);
   font-size: 14px;
   height: 100%;
-  transition: color 0.3s;
+  transition: color 0.3s ease-in-out;
 
   &:hover {
     color: $primary-color;
