@@ -26,12 +26,15 @@ export class TaskService {
   fetchTasks(): void {
     this.http
       .get<Task[]>(this.apiUrl, { headers: this.getAuthHeaders() })
-      .subscribe((tasks) => this.tasksSubject.next(tasks));
+      .subscribe({
+        next: (tasks) => this.tasksSubject.next(tasks),
+        error: (err) => console.error('Error fetching tasks:', err),
+      });
   }
 
   togglePin(task: Task): void {
     const updatedTask = { ...task, pinned: !task.pinned };
-    this.updateLocalTask(updatedTask); // Optimistic UI update
+    this.updateLocalTask(updatedTask);
 
     this.http
       .put(`${this.apiUrl}/${task._id}`, updatedTask, {
@@ -39,8 +42,8 @@ export class TaskService {
       })
       .subscribe({
         error: (err) => {
-          console.error('Error updating task:', err);
-          this.fetchTasks(); // Rollback if failed
+          console.error('Error toggling pin:', err);
+          this.fetchTasks();
         },
       });
   }
@@ -55,7 +58,7 @@ export class TaskService {
       })
       .subscribe({
         error: (err) => {
-          console.error('Error updating task:', err);
+          console.error('Error toggling completion:', err);
           this.fetchTasks();
         },
       });
@@ -69,16 +72,11 @@ export class TaskService {
   }
 
   addTask(task: Task): void {
-    const tasks = [...this.tasksSubject.value, task];
-    this.tasksSubject.next(tasks);
-
     this.http
       .post<Task>(this.apiUrl, task, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (savedTask) => {
-          const updatedTasks = this.tasksSubject.value.map((t) =>
-            t._id === task._id ? { ...task, _id: savedTask._id } : t
-          );
+          const updatedTasks = [...this.tasksSubject.value, savedTask];
           this.tasksSubject.next(updatedTasks);
         },
         error: (err) => {
@@ -93,11 +91,18 @@ export class TaskService {
       .put(`${this.apiUrl}/${updatedTask._id}`, updatedTask, {
         headers: this.getAuthHeaders(),
       })
-      .subscribe(() => this.fetchTasks());
+      .subscribe({
+        next: () => this.fetchTasks(),
+        error: (err) => {
+          console.error('Error updating task:', err);
+          this.fetchTasks();
+        },
+      });
   }
 
   deleteTask(taskId: string): void {
-    const tasks = this.tasksSubject.value.filter((t) => t._id !== taskId);
+    const previousTasks = [...this.tasksSubject.value];
+    const tasks = previousTasks.filter((t) => t._id !== taskId);
     this.tasksSubject.next(tasks);
 
     this.http
@@ -105,7 +110,7 @@ export class TaskService {
       .subscribe({
         error: (err) => {
           console.error('Error deleting task:', err);
-          this.fetchTasks();
+          this.tasksSubject.next(previousTasks);
         },
       });
   }
@@ -113,7 +118,13 @@ export class TaskService {
   clearAllTasks(): void {
     this.http
       .delete(this.apiUrl, { headers: this.getAuthHeaders() })
-      .subscribe(() => this.fetchTasks());
+      .subscribe({
+        next: () => this.tasksSubject.next([]),
+        error: (err) => {
+          console.error('Error clearing tasks:', err);
+          this.fetchTasks();
+        },
+      });
   }
 
   trackByTaskId(index: number, task: Task): string {
