@@ -1,12 +1,10 @@
-import { Component, Input, HostListener } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-
-// Angular Material Imports
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatDivider } from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { ShowFormService } from '../services/show-form.service';
 
 @Component({
@@ -17,27 +15,28 @@ import { ShowFormService } from '../services/show-form.service';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatDivider,
+    MatDividerModule,
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  showForm: boolean = true;
+  showForm = true;
   isMenuOpen = false;
   isSmallScreen = window.innerWidth <= 768;
 
-  constructor(private router: Router, public showFormService: ShowFormService) {
+  constructor(
+    private router: Router,
+    private showFormService: ShowFormService
+  ) {
     this.showFormService.showForm$.subscribe(
       (value) => (this.showForm = value)
     );
   }
 
   get isAuthPage(): boolean {
-    return (
-      this.router.url.includes('/login') ||
-      this.router.url.includes('/register') ||
-      this.router.url.includes('/forgot-password')
+    return ['/login', '/register', '/forgot-password'].some((path) =>
+      this.router.url.includes(path)
     );
   }
 
@@ -57,20 +56,24 @@ export class HeaderComponent {
   }
 
   onButtonClick(): void {
-    if (this.router.url.includes('/login')) {
-      this.router.navigate(['/register']);
-    } else if (this.router.url.includes('/register')) {
-      this.router.navigate(['/login']);
-    } else if (this.router.url.includes('/forgot-password')) {
-      this.router.navigate(['/login']);
-    } else {
-      if (localStorage.getItem('authToken')) {
-        localStorage.removeItem('authToken');
+    if (this.isAuthPage) {
+      if (this.router.url.includes('/register')) {
+        this.router.navigate(['/login']);
+      } else if (this.router.url.includes('/forgot-password')) {
         this.router.navigate(['/login']);
       } else {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/register']);
       }
+    } else {
+      localStorage.getItem('authToken')
+        ? this.logout()
+        : this.router.navigate(['/login']);
     }
+  }
+
+  logout(): void {
+    localStorage.removeItem('authToken');
+    this.router.navigate(['/login']);
   }
 
   toggleTaskForm(): void {
@@ -85,8 +88,8 @@ export class HeaderComponent {
     console.log('Theme toggle clicked! (To be implemented)');
   }
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
+  @HostListener('window:resize')
+  onResize(): void {
     this.isSmallScreen = window.innerWidth <= 768;
   }
 }
