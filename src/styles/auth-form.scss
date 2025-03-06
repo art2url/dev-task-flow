@@ -1,6 +1,7 @@
 @use "sass:math";
 @import "variables";
 
+// Container
 .auth-container {
   display: flex;
   justify-content: center;
@@ -8,23 +9,27 @@
   height: calc(100vh - 64px - 15vh);
 }
 
+// Authentication Card
 .auth-card {
   width: 380px;
   padding: 24px;
   border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: $card-shadow;
 }
 
+// Form Inputs
 .auth-input {
   width: 100%;
   max-width: 340px;
-  margin-bottom: 16px;
+  margin-bottom: $spacing;
 }
 
+// Submit Button
 .auth-button {
   width: 100%;
 }
 
+// Title
 .auth-title {
   text-align: left;
   margin-bottom: 20px;
@@ -33,6 +38,7 @@
   color: $text-color;
 }
 
+// Auxiliary Text
 .auth-text {
   text-align: center;
   margin-top: $spacing;
@@ -47,6 +53,7 @@
   }
 }
 
+// Message States
 .error-message {
   font-weight: normal;
   color: $alert-text;
