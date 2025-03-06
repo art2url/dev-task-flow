@@ -1,5 +1,5 @@
 import { MatMenuModule } from '@angular/material/menu';
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Task } from '../models/task.model';
 import { TaskService } from '../task.service';
@@ -52,8 +52,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
 })
-export class TaskListComponent implements OnInit, AfterViewInit {
-  isWideScreen: boolean = true;
+export class TaskListComponent implements OnInit, AfterViewInit, OnDestroy {
+  isWideScreen: boolean = window.innerWidth > 525;
   tasks: Task[] = [];
   filteredTasks: Task[] = [];
   filteredTasksOriginal: Task[] = [];
@@ -64,28 +64,24 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   showForm = true;
   isLoading = true;
 
+  private resizeListener = () => this.checkScreenSize();
+
   constructor(
     public taskService: TaskService,
     private dialog: MatDialog,
     public showFormService: ShowFormService
-  ) {
-    this.checkScreenSize();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
 
-    window.addEventListener('resize', () => this.checkScreenSize());
+    window.addEventListener('resize', this.resizeListener);
 
     this.showFormService.showForm$.subscribe((value) => {
       this.showForm = value;
     });
 
     this.taskService.tasks$.subscribe((tasks) => {
-      if (tasks.length === 0) {
-        this.isLoading = true;
-      }
-
       this.tasks = tasks.map((task) => ({
         ...task,
         createdAt: new Date(task.createdAt),
@@ -105,6 +101,10 @@ export class TaskListComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => this.calculateProgress(), 0);
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.resizeListener);
   }
 
   checkScreenSize(): void {
