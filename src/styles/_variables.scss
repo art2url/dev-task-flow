@@ -1,11 +1,16 @@
+// Colors
 $primary-color: cyan;
 $secondary-color: #ff9800;
 $text-color: #889392;
-$card-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-$card-hover-shadow: 0px 8px 16px rgba(0, 0, 0, 0.6);
-$spacing: 16px;
-$radius-bottom: 0px 0px 12px 12px;
 $alert-text: #ffb4ab;
 $red: #f15152;
 $orange: #ffc857;
 $green: #4d8b31;
+
+// Layout
+$spacing: 16px;
+$radius-bottom: 0px 0px 12px 12px;
+
+// Shadows
+$card-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+$card-hover-shadow: 0px 8px 16px rgba(0, 0, 0, 0.6);
