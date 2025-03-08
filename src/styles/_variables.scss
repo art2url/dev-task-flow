@@ -1,16 +1,52 @@
-// Colors
-$primary-color: cyan;
-$secondary-color: #ff9800;
-$text-color: #889392;
-$alert-text: #ffb4ab;
-$red: #f15152;
-$orange: #ffc857;
-$green: #4d8b31;
+:root {
+  --background-app: #101414;
+  --background-card: #1a1c1c;
+  --primary-color: #00dddd;
+  --secondary-color: #ff9800;
+  --text-color-primary: #dde5e4;
+  --text-color-secondary: #889392;
+  --alert-text: #ffb4ab;
+  --success-text: #75ce74;
+  --red: #f15152;
+  --orange: #ffc857;
+  --green: #4d8b31;
+  --card-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  --card-hover-shadow: 0px 8px 16px rgba(0, 0, 0, 0.6);
+  --menu-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  --divider: #323d3b;
+  --divider-dimmed: #191d1d;
+  --text-color-dimmed: gray;
+  --completed-task-background-color: rgba(30, 30, 30, 0.2);
+  --completed-task-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important;
+  --completed-task-title: rgba(255, 255, 255, 0.6);
+  --pinned-task: 2px dashed #323d3b;
+  --background-footer: #1a1c1c;
+}
 
-// Layout
+.azure-blue-theme {
+  --background-app: #faf9fd;
+  --background-card: #ffffff;
+  --primary-color: #005cbb;
+  --secondary-color: #2196f3;
+  --text-color-primary: #45474e;
+  --text-color-secondary: #999c9d;
+  --alert-text: #bd1a16;
+  --success-text: #43a047;
+  --red: #e53935;
+  --orange: #ffb300;
+  --green: #43a047;
+  --card-shadow: 0px 4px 8px rgba(50, 50, 50, 0.1);
+  --card-hover-shadow: 0px 8px 16px rgba(150, 150, 150, 0.3);
+  --menu-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  --divider: #c5c6cf;
+  --divider-dimmed: rgb(229, 233, 233);
+  --text-color-dimmed: rgb(198, 198, 198);
+  --completed-task-background-color: rgba(255, 255, 255, 0.6);
+  --completed-task-box-shadow: 0px 4px 8px rgba(200, 200, 200, 0.2) !important;
+  --completed-task-title: rgba(91, 91, 91, 0.6);
+  --pinned-task: 2px dashed #c5c6cf;
+  --background-footer: #f0f0f4;
+}
+
 $spacing: 16px;
 $radius-bottom: 0px 0px 12px 12px;
-
-// Shadows
-$card-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-$card-hover-shadow: 0px 8px 16px rgba(0, 0, 0, 0.6);
