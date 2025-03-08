@@ -1,6 +1,12 @@
 @use "sass:math";
 @import "variables";
 
+mat-toolbar {
+  font-family: "Lexend", sans-serif;
+  font-weight: 300;
+  font-size: 22px;
+}
+
 mat-divider {
   border-top-color: $divider-dimmed;
 }
