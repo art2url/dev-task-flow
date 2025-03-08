@@ -84,12 +84,21 @@ export class HeaderComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  isAzureBlueTheme(): boolean {
-    return document.body.classList.contains('azure-blue-theme');
+  toggleTheme(): void {
+    const body = document.body;
+    const themeClass = 'azure-blue-theme';
+
+    if (body.classList.contains(themeClass)) {
+      body.classList.remove(themeClass);
+      localStorage.setItem('theme', 'default');
+    } else {
+      body.classList.add(themeClass);
+      localStorage.setItem('theme', 'azure-blue');
+    }
   }
 
-  toggleTheme(): void {
-    document.body.classList.toggle('azure-blue-theme');
+  isAzureBlueTheme(): boolean {
+    return document.body.classList.contains('azure-blue-theme');
   }
 
   @HostListener('window:resize')
