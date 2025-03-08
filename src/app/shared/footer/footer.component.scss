@@ -1,8 +1,11 @@
 @use "sass:math";
 @import "variables";
 
+mat-divider {
+  border-top-color: $divider-dimmed;
+}
+
 .footer {
-  background-color: $background-footer;
   color: $text-color-secondary;
   padding: 32px 0;
   position: relative;
