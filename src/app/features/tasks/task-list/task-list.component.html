@@ -39,7 +39,9 @@
           task.deadline ? (task.deadline | date : "shortDate") : "No deadline"
         }}
       </span>
-      | Created: {{ task.createdAt | date : "shortDate" }}
+      <span class="task-created">
+        | Created: {{ task.createdAt | date : "shortDate" }}</span
+      >
     </mat-card-subtitle>
 
     <mat-card-content>{{ task.description }}</mat-card-content>
