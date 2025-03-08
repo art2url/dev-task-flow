@@ -1,3 +1,39 @@
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+$defaultTheme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$cyan-palette,
+      tertiary: mat.$orange-palette,
+    ),
+  )
+);
+
+$azureBlueTheme: mat.define-theme(
+  (
+    color: (
+      theme-type: light,
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+  )
+);
+
+:root {
+  @include mat.all-component-colors($defaultTheme);
+  @include mat.all-component-typographies($defaultTheme);
+  @include mat.all-component-densities($defaultTheme);
+}
+
+.azure-blue-theme {
+  @include mat.all-component-colors($azureBlueTheme);
+  @include mat.all-component-typographies($azureBlueTheme);
+  @include mat.all-component-densities($azureBlueTheme);
+}
+
 body,
 h1,
 h2,
@@ -5,14 +41,14 @@ h3,
 p,
 ul,
 li {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 html,
 body {
   height: 100%;
-  background-color: #101414;
+  background-color: var(--background-app);
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -26,3 +62,6 @@ body {
   flex: 1;
   padding-bottom: 80px;
 }
+
+@import "./styles/_variables.scss";
+@import "./styles/auth-form.scss";
