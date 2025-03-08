@@ -1,6 +1,10 @@
 @use "sass:math";
 @import "variables";
 
+mat-card {
+  background-color: var(--background-card);
+}
+
 mat-card-content {
   padding-bottom: 0 !important;
 }
@@ -8,7 +12,7 @@ mat-card-content {
 .task-form-card {
   margin-left: math.div($spacing, 0.5);
   margin-right: math.div($spacing, 0.5);
-  box-shadow: $card-shadow;
+  box-shadow: var(--card-shadow);
   border-radius: 0px 0px $spacing $spacing;
   padding: $spacing $spacing 0 $spacing;
 
