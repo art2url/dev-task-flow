@@ -1,13 +1,21 @@
 @use "sass:math";
 @import "variables";
 
+mat-card {
+  background-color: var(--background-card);
+}
+
 mat-card-content {
   margin-bottom: math.div($spacing, 1);
   font-size: 14px;
-  color: $text-color;
+  color: var(--text-color-secondary);
   line-height: 1.4;
   padding: math.div($spacing, 2);
   white-space: pre-line;
+}
+
+mat-divider {
+  border-top-color: var(--divider);
 }
 
 .container {
@@ -45,7 +53,7 @@ mat-card-content {
 }
 
 .task-title {
-  color: $primary-color;
+  color: (--primary-color);
   padding: math.div($spacing, 2);
   font-weight: 600;
 }
@@ -53,9 +61,10 @@ mat-card-content {
 .task-subtitle {
   margin-top: math.div($spacing, 2);
   padding: math.div($spacing, 2);
+  color: var(--text-color-primary);
 
   .overdue {
-    color: $red;
+    color: var(--red);
     font-weight: bold;
   }
 }
@@ -70,26 +79,26 @@ mat-card-content {
 .no-tasks {
   text-align: center;
   font-size: 18px;
-  color: gray;
+  color: var(--text-color-dimmed);
   margin-top: 20px;
 }
 
 .completed-task {
   transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out,
     box-shadow 0.5s ease-in-out;
-  background-color: rgba(30, 30, 30, 0.2);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important;
+  background-color: var(--completed-task-background-color);
+  box-shadow: var(--completed-task-box-shadow);
   opacity: 0.8;
 }
 
 .completed-task .task-title {
   text-decoration: line-through;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--completed-task-title);
   transition: color 0.5s ease-in-out, text-decoration 0.5s ease-in-out;
 }
 
 .completed-task .task-subtitle {
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--completed-task-title);
   transition: color 0.5s ease-in-out;
 }
 
@@ -99,24 +108,24 @@ mat-card-content {
   height: 100%;
   padding: $spacing;
   transition: box-shadow 0.3s;
-  box-shadow: $card-shadow;
+  box-shadow: var(--card-shadow);
 
   &:hover {
-    box-shadow: $card-hover-shadow;
+    box-shadow: var(--card-hover-shadow);
   }
 
   &.pinned-task {
-    border: 2px dashed #404847;
+    border: var(--pinned-task);
   }
 
   &.priority-Low {
-    border-left: 2px solid $green;
+    border-left: 2px solid var(--green);
   }
   &.priority-Medium {
-    border-left: 2px solid $orange;
+    border-left: 2px solid var(--orange);
   }
   &.priority-High {
-    border-left: 2px solid $red;
+    border-left: 2px solid var(--red);
   }
 
   mat-card-content {
@@ -130,7 +139,7 @@ mat-card-content {
 }
 
 .divider-pagi {
-  border-top: 1px solid #191d1d;
+  border-top: 1px solid var(--divider-dimmed);
   margin: 8px 32px 0 32px;
 }
 
@@ -145,8 +154,13 @@ mat-card-content {
 }
 
 .delete-text {
-  color: $alert-text;
-  font-weight: bold;
+  color: var(--alert-text) !important;
+}
+
+.task-title {
+  color: var(--primary-color);
+  padding: math.div($spacing, 2);
+  font-weight: 600;
 }
 
 .paginator-container {
