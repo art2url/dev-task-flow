@@ -36,7 +36,7 @@
               "@angular/material/prebuilt-themes/cyan-orange.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/theme-loader.js"]
           },
           "configurations": {
             "production": {
@@ -93,7 +93,7 @@
               "@angular/material/prebuilt-themes/cyan-orange.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": ["src/assets/js/theme-loader.js"]
           }
         }
       }

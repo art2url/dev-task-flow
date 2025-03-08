@@ -24,6 +24,7 @@ export class HeaderComponent {
   showForm = true;
   isMenuOpen = false;
   isSmallScreen = window.innerWidth <= 768;
+  isAzureTheme = false;
 
   constructor(
     private router: Router,
@@ -32,6 +33,14 @@ export class HeaderComponent {
     this.showFormService.showForm$.subscribe(
       (value) => (this.showForm = value)
     );
+    const savedTheme = localStorage.getItem('theme') || 'default-theme';
+    document.documentElement.classList.remove(
+      'azure-blue-theme',
+      'default-theme'
+    );
+    document.documentElement.classList.add(savedTheme);
+
+    this.isAzureTheme = savedTheme === 'azure-blue-theme';
   }
 
   get isAuthPage(): boolean {
@@ -85,20 +94,20 @@ export class HeaderComponent {
   }
 
   toggleTheme(): void {
-    const body = document.body;
-    const themeClass = 'azure-blue-theme';
+    const isAzureBlue =
+      document.documentElement.classList.contains('azure-blue-theme');
 
-    if (body.classList.contains(themeClass)) {
-      body.classList.remove(themeClass);
-      localStorage.setItem('theme', 'default');
+    if (isAzureBlue) {
+      document.documentElement.classList.remove('azure-blue-theme');
+      document.documentElement.classList.add('default-theme');
+      localStorage.setItem('theme', 'default-theme');
+      this.isAzureTheme = false;
     } else {
-      body.classList.add(themeClass);
-      localStorage.setItem('theme', 'azure-blue');
+      document.documentElement.classList.remove('default-theme');
+      document.documentElement.classList.add('azure-blue-theme');
+      localStorage.setItem('theme', 'azure-blue-theme');
+      this.isAzureTheme = true;
     }
-  }
-
-  isAzureBlueTheme(): boolean {
-    return document.body.classList.contains('azure-blue-theme');
   }
 
   @HostListener('window:resize')
