@@ -16,113 +16,118 @@
 >
 </app-task-controls>
 
-<div *ngIf="isLoading" class="loading-container">
-  <mat-progress-spinner
-    mode="indeterminate"
-    diameter="50"
-  ></mat-progress-spinner>
-  <p class="loading-text">Please wait, tasks are loading...</p>
-</div>
+<div class="wrapper">
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-progress-spinner
+      mode="indeterminate"
+      diameter="50"
+    ></mat-progress-spinner>
+    <p class="loading-text">Please wait, tasks are loading...</p>
+  </div>
 
-<div *ngIf="!isLoading && filteredTasks.length > 0" class="task-list container">
-  <mat-card
-    *ngFor="let task of filteredTasks; trackBy: trackByTaskId"
-    class="task-card priority-{{ task.priority }} {{
-      task.pinned ? 'pinned-task' : ''
-    }} {{ task.completed ? 'completed-task' : '' }}"
+  <div
+    *ngIf="!isLoading && filteredTasks.length > 0"
+    class="task-list container"
   >
-    <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
-    <mat-card-subtitle class="task-subtitle">
-      <span [class.overdue]="isOverdue(task)">
-        Deadline:
-        {{
-          task.deadline ? (task.deadline | date : "shortDate") : "No deadline"
-        }}
-      </span>
-      <span class="task-created">
-        | Created: {{ task.createdAt | date : "shortDate" }}</span
-      >
-    </mat-card-subtitle>
-
-    <mat-card-content>{{ task.description }}</mat-card-content>
-
-    <mat-divider></mat-divider>
-    <mat-card-actions class="task-handler">
-      <button mat-button (click)="toggleTaskCompletion(task)">
-        <mat-icon
-          [ngStyle]="{
-            color: task.completed
-              ? 'var(--primary-color)'
-              : 'var(--text-color-primary)'
-          }"
-        >
-          {{ task.completed ? "check_box" : "check_box_outline_blank" }}
-        </mat-icon>
-        <span
-          [ngStyle]="{
-            color: task.completed
-              ? 'var(--primary-color)'
-              : 'var(--text-color-primary)'
-          }"
-        >
-          {{ task.completed ? "Completed" : "Mark Complete" }}
+    <mat-card
+      *ngFor="let task of filteredTasks; trackBy: trackByTaskId"
+      class="task-card priority-{{ task.priority }} {{
+        task.pinned ? 'pinned-task' : ''
+      }} {{ task.completed ? 'completed-task' : '' }}"
+    >
+      <mat-card-title class="task-title">{{ task.title }}</mat-card-title>
+      <mat-card-subtitle class="task-subtitle">
+        <span [class.overdue]="isOverdue(task)">
+          Deadline:
+          {{
+            task.deadline ? (task.deadline | date : "shortDate") : "No deadline"
+          }}
         </span>
-      </button>
-
-      <span class="spacer"></span>
-
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item (click)="togglePin(task)">
-          <mat-icon>{{
-            task.pinned ? "push_pin" : "push_pin_outlined"
-          }}</mat-icon>
-          <span> {{ task.pinned ? "Unpin" : "Pin" }} </span>
-        </button>
-        <button mat-menu-item (click)="startEdit(task)">
-          <mat-icon>edit</mat-icon>
-          <span>Edit</span>
-        </button>
-        <button
-          mat-menu-item
-          class="delete-button"
-          (click)="deleteTask(task._id)"
+        <span class="task-created">
+          | Created: {{ task.createdAt | date : "shortDate" }}</span
         >
-          <mat-icon class="delete-text">delete</mat-icon>
-          <span class="delete-text">Delete</span>
+      </mat-card-subtitle>
+
+      <mat-card-content>{{ task.description }}</mat-card-content>
+
+      <mat-divider></mat-divider>
+      <mat-card-actions class="task-handler">
+        <button mat-button (click)="toggleTaskCompletion(task)">
+          <mat-icon
+            [ngStyle]="{
+              color: task.completed
+                ? 'var(--primary-color)'
+                : 'var(--text-color-primary)'
+            }"
+          >
+            {{ task.completed ? "check_box" : "check_box_outline_blank" }}
+          </mat-icon>
+          <span
+            [ngStyle]="{
+              color: task.completed
+                ? 'var(--primary-color)'
+                : 'var(--text-color-primary)'
+            }"
+          >
+            {{ task.completed ? "Completed" : "Mark Complete" }}
+          </span>
         </button>
-      </mat-menu>
-    </mat-card-actions>
-  </mat-card>
-</div>
 
-<div *ngIf="!isLoading && filteredTasks.length === 0" class="no-tasks">
-  <p>No tasks available.</p>
-</div>
+        <span class="spacer"></span>
 
-<div class="divider-pagi" *ngIf="!isLoading && tasks.length > 5"></div>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="togglePin(task)">
+            <mat-icon>{{
+              task.pinned ? "push_pin" : "push_pin_outlined"
+            }}</mat-icon>
+            <span> {{ task.pinned ? "Unpin" : "Pin" }} </span>
+          </button>
+          <button mat-menu-item (click)="startEdit(task)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button
+            mat-menu-item
+            class="delete-button"
+            (click)="deleteTask(task._id)"
+          >
+            <mat-icon class="delete-text">delete</mat-icon>
+            <span class="delete-text">Delete</span>
+          </button>
+        </mat-menu>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 
-<div
-  class="paginator-container container"
-  *ngIf="!isLoading && tasks.length > 5"
->
-  <mat-paginator
-    [length]="filteredTasksOriginal.length"
-    [pageSize]="pageSize"
-    [pageIndex]="pageIndex"
-    [pageSizeOptions]="[6, 12, 24]"
-    (page)="onPageChange($event)"
-  ></mat-paginator>
+  <div *ngIf="!isLoading && filteredTasks.length === 0" class="no-tasks">
+    <p>No tasks available.</p>
+  </div>
 
-  <button
-    class="clear-button"
-    mat-button
-    color="primary"
-    (click)="openDeleteConfirmationDialog()"
-    *ngIf="isWideScreen"
+  <div class="divider-pagi" *ngIf="!isLoading && tasks.length > 5"></div>
+
+  <div
+    class="paginator-container container"
+    *ngIf="!isLoading && tasks.length > 5"
   >
-    Clear All
-  </button>
+    <mat-paginator
+      [length]="filteredTasksOriginal.length"
+      [pageSize]="pageSize"
+      [pageIndex]="pageIndex"
+      [pageSizeOptions]="[6, 12, 24]"
+      (page)="onPageChange($event)"
+    ></mat-paginator>
+
+    <button
+      class="clear-button"
+      mat-button
+      color="primary"
+      (click)="openDeleteConfirmationDialog()"
+      *ngIf="isWideScreen"
+    >
+      Clear All
+    </button>
+  </div>
 </div>

@@ -18,6 +18,10 @@ mat-divider {
   border-top-color: $divider;
 }
 
+.wrapper {
+  padding-bottom: 40px;
+}
+
 .container {
   margin: 0 16px;
 
@@ -53,9 +57,10 @@ mat-divider {
 }
 
 .task-title {
+  font-family: "Lexend", sans-serif;
   color: $primary-color;
   padding: math.div($spacing, 2);
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .task-created {
@@ -64,14 +69,15 @@ mat-divider {
 }
 
 .task-subtitle {
-  margin-top: math.div($spacing, 2);
+  font-family: "Lexend", sans-serif;
+  margin-top: math.div($spacing, 4);
   padding: math.div($spacing, 2);
   color: $text-color-primary;
-  font-weight: 500;
+  font-weight: 400;
 
   .overdue {
     color: $red;
-    font-weight: 500;
+    font-weight: 400;
   }
 }
 
@@ -79,7 +85,7 @@ mat-divider {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   gap: $spacing;
-  padding: $spacing;
+  padding: math.div($spacing, 2) $spacing $spacing $spacing;
 }
 
 .no-tasks {
