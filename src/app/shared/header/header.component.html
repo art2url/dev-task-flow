@@ -16,7 +16,8 @@
       </button>
 
       <button mat-button (click)="toggleTheme()">
-        <mat-icon>brightness_6</mat-icon> Toggle Theme
+        <mat-icon>brightness_6</mat-icon>
+        {{ isAzureBlueTheme() ? "Dark Theme" : "White Theme" }}
       </button>
 
       <button mat-button *ngIf="!isAuthPage" (click)="toggleTaskForm()">
@@ -33,7 +34,8 @@
       </button>
 
       <button mat-button (click)="toggleTheme()">
-        <mat-icon>brightness_6</mat-icon> Toggle Theme
+        <mat-icon>brightness_6</mat-icon>
+        {{ isAzureBlueTheme() ? "Dark Theme" : "White Theme" }}
       </button>
 
       <button mat-button (click)="onButtonClick()">
