@@ -22,9 +22,9 @@
   position: absolute;
   top: 50px;
   right: 0;
-  background: #101414;
+  background: var(--background-card);
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--menu-shadow);
   z-index: 1000;
 
   button {
