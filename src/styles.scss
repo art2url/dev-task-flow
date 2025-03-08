@@ -22,6 +22,8 @@ $azureBlueTheme: mat.define-theme(
   )
 );
 
+@import "./styles/_variables.scss";
+
 :root {
   @include mat.all-component-colors($defaultTheme);
   @include mat.all-component-typographies($defaultTheme);
@@ -48,7 +50,7 @@ li {
 html,
 body {
   height: 100%;
-  background-color: var(--background-app);
+  background-color: $background-app;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
@@ -63,5 +65,4 @@ body {
   padding-bottom: 80px;
 }
 
-@import "./styles/_variables.scss";
 @import "./styles/auth-form.scss";

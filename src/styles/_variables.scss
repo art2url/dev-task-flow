@@ -1,3 +1,32 @@
+// SCSS Variables (Using CSS Variables for Runtime Switching)
+$background-app: var(--background-app);
+$background-card: var(--background-card);
+$primary-color: var(--primary-color);
+$secondary-color: var(--secondary-color);
+$text-color-primary: var(--text-color-primary);
+$text-color-secondary: var(--text-color-secondary);
+$alert-text: var(--alert-text);
+$success-text: var(--success-text);
+$red: var(--red);
+$orange: var(--orange);
+$green: var(--green);
+$card-shadow: var(--card-shadow);
+$card-hover-shadow: var(--card-hover-shadow);
+$menu-shadow: var(--menu-shadow);
+$divider: var(--divider);
+$divider-dimmed: var(--divider-dimmed);
+$text-color-dimmed: var(--text-color-dimmed);
+$completed-task-background-color: var(--completed-task-background-color);
+$completed-task-box-shadow: var(--completed-task-box-shadow);
+$completed-task-title: var(--completed-task-title);
+$pinned-task: var(--pinned-task);
+$background-footer: var(--background-footer);
+
+// Layout
+$spacing: 16px;
+$radius-bottom: 0px 0px 12px 12px;
+
+// Default Theme (Cyan & Orange)
 :root {
   --background-app: #101414;
   --background-card: #1a1c1c;
@@ -23,6 +52,7 @@
   --background-footer: #1a1c1c;
 }
 
+// Azure & Blue Theme
 .azure-blue-theme {
   --background-app: #faf9fd;
   --background-card: #ffffff;
@@ -47,6 +77,3 @@
   --pinned-task: 2px dashed #c5c6cf;
   --background-footer: #f0f0f4;
 }
-
-$spacing: 16px;
-$radius-bottom: 0px 0px 12px 12px;

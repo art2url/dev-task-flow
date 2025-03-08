@@ -1,3 +1,6 @@
+@use "sass:math";
+@import "variables";
+
 .spacer {
   flex: 1 1 auto;
 }
@@ -22,9 +25,9 @@
   position: absolute;
   top: 50px;
   right: 0;
-  background: var(--background-card);
+  background: $background-card;
   border-radius: 8px;
-  box-shadow: var(--menu-shadow);
+  box-shadow: $menu-shadow;
   z-index: 1000;
 
   button {

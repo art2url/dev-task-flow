@@ -2,20 +2,20 @@
 @import "variables";
 
 mat-card {
-  background-color: var(--background-card);
+  background-color: $background-card;
 }
 
 mat-card-content {
   margin-bottom: math.div($spacing, 1);
   font-size: 14px;
-  color: var(--text-color-secondary);
+  color: $text-color-secondary;
   line-height: 1.4;
   padding: math.div($spacing, 2);
   white-space: pre-line;
 }
 
 mat-divider {
-  border-top-color: var(--divider);
+  border-top-color: $divider;
 }
 
 .container {
@@ -42,7 +42,7 @@ mat-divider {
 .loading-text {
   margin-top: 20px;
   font-size: 16px;
-  color: var(--mat-toolbar-container-text-color);
+  color: $text-color-secondary;
 }
 
 .progress-bar-wrapper {
@@ -53,7 +53,7 @@ mat-divider {
 }
 
 .task-title {
-  color: (--primary-color);
+  color: $primary-color;
   padding: math.div($spacing, 2);
   font-weight: 600;
 }
@@ -61,10 +61,10 @@ mat-divider {
 .task-subtitle {
   margin-top: math.div($spacing, 2);
   padding: math.div($spacing, 2);
-  color: var(--text-color-primary);
+  color: $text-color-primary;
 
   .overdue {
-    color: var(--red);
+    color: $red;
     font-weight: bold;
   }
 }
@@ -79,26 +79,26 @@ mat-divider {
 .no-tasks {
   text-align: center;
   font-size: 18px;
-  color: var(--text-color-dimmed);
+  color: $text-color-dimmed;
   margin-top: 20px;
 }
 
 .completed-task {
   transition: background-color 0.5s ease-in-out, opacity 0.5s ease-in-out,
     box-shadow 0.5s ease-in-out;
-  background-color: var(--completed-task-background-color);
-  box-shadow: var(--completed-task-box-shadow);
+  background-color: $completed-task-background-color;
+  box-shadow: $completed-task-box-shadow;
   opacity: 0.8;
 }
 
 .completed-task .task-title {
   text-decoration: line-through;
-  color: var(--completed-task-title);
+  color: $completed-task-title;
   transition: color 0.5s ease-in-out, text-decoration 0.5s ease-in-out;
 }
 
 .completed-task .task-subtitle {
-  color: var(--completed-task-title);
+  color: $completed-task-title;
   transition: color 0.5s ease-in-out;
 }
 
@@ -108,24 +108,24 @@ mat-divider {
   height: 100%;
   padding: $spacing;
   transition: box-shadow 0.3s;
-  box-shadow: var(--card-shadow);
+  box-shadow: $card-shadow;
 
   &:hover {
-    box-shadow: var(--card-hover-shadow);
+    box-shadow: $card-hover-shadow;
   }
 
   &.pinned-task {
-    border: var(--pinned-task);
+    border: $pinned-task;
   }
 
   &.priority-Low {
-    border-left: 2px solid var(--green);
+    border-left: 2px solid $green;
   }
   &.priority-Medium {
-    border-left: 2px solid var(--orange);
+    border-left: 2px solid $orange;
   }
   &.priority-High {
-    border-left: 2px solid var(--red);
+    border-left: 2px solid $red;
   }
 
   mat-card-content {
@@ -139,7 +139,7 @@ mat-divider {
 }
 
 .divider-pagi {
-  border-top: 1px solid var(--divider-dimmed);
+  border-top: 1px solid $divider-dimmed;
   margin: 8px 32px 0 32px;
 }
 
@@ -154,11 +154,11 @@ mat-divider {
 }
 
 .delete-text {
-  color: var(--alert-text) !important;
+  color: $alert-text !important;
 }
 
 .task-title {
-  color: var(--primary-color);
+  color: $primary-color;
   padding: math.div($spacing, 2);
   font-weight: 600;
 }

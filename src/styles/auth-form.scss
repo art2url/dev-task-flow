@@ -11,11 +11,11 @@
 
 // Authentication Card
 .auth-card {
-  background-color: var(--background-card);
+  background-color: $background-card;
   width: 380px;
   padding: 24px;
   border-radius: 12px;
-  box-shadow: var(--card-shadow);
+  box-shadow: $card-shadow;
 }
 
 // Form Inputs
@@ -36,7 +36,7 @@
   margin-bottom: 20px;
   font-size: 14px;
   line-height: 1.5;
-  color: var(--text-color-secondary);
+  color: $text-color-secondary;
 }
 
 // Auxiliary Text
@@ -44,10 +44,10 @@
   text-align: center;
   margin-top: $spacing;
   font-size: 12px;
-  color: var(--text-color-secondary);
+  color: $text-color-secondary;
 
   a {
-    color: var(--primary-color);
+    color: $primary-color;
     text-decoration: none;
     font-weight: regular;
     cursor: pointer;
@@ -57,10 +57,10 @@
 // Message States
 .error-message {
   font-weight: normal;
-  color: var(--alert-text);
+  color: $alert-text;
 }
 
 .success-message {
   font-weight: normal;
-  color: var(--success-text);
+  color: $success-text;
 }

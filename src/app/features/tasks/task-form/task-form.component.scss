@@ -2,7 +2,7 @@
 @import "variables";
 
 mat-card {
-  background-color: var(--background-card);
+  background-color: $background-card;
 }
 
 mat-card-content {
@@ -12,7 +12,7 @@ mat-card-content {
 .task-form-card {
   margin-left: math.div($spacing, 0.5);
   margin-right: math.div($spacing, 0.5);
-  box-shadow: var(--card-shadow);
+  box-shadow: $card-shadow;
   border-radius: 0px 0px $spacing $spacing;
   padding: $spacing $spacing 0 $spacing;
 

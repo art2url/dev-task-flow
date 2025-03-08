@@ -2,8 +2,8 @@
 @import "variables";
 
 .footer {
-  background-color: var(--background-footer);
-  color: var(--text-color-secondary);
+  background-color: $background-footer;
+  color: $text-color-secondary;
   padding: 32px 0;
   position: relative;
   width: 100%;
@@ -41,13 +41,13 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  color: var(--text-color-primary);
+  color: $text-color-primary;
   font-size: 14px;
   height: 100%;
   transition: color 0.3s ease-in-out;
 
   &:hover {
-    color: var(--primary-color);
+    color: $primary-color;
   }
 }
 
