@@ -84,8 +84,12 @@ export class HeaderComponent {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+  isAzureBlueTheme(): boolean {
+    return document.body.classList.contains('azure-blue-theme');
+  }
+
   toggleTheme(): void {
-    console.log('Theme toggle clicked! (To be implemented)');
+    document.body.classList.toggle('azure-blue-theme');
   }
 
   @HostListener('window:resize')
