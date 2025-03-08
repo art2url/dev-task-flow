@@ -44,13 +44,25 @@
 
     <mat-card-content>{{ task.description }}</mat-card-content>
 
-    <mat-divider class="divider"></mat-divider>
+    <mat-divider></mat-divider>
     <mat-card-actions class="task-handler">
       <button mat-button (click)="toggleTaskCompletion(task)">
-        <mat-icon [ngStyle]="{ color: task.completed ? 'cyan' : '#e0e3e2' }">
+        <mat-icon
+          [ngStyle]="{
+            color: task.completed
+              ? 'var(--primary-color)'
+              : 'var(--text-color-primary)'
+          }"
+        >
           {{ task.completed ? "check_box" : "check_box_outline_blank" }}
         </mat-icon>
-        <span [ngStyle]="{ color: task.completed ? 'cyan' : '#e0e3e2' }">
+        <span
+          [ngStyle]="{
+            color: task.completed
+              ? 'var(--primary-color)'
+              : 'var(--text-color-primary)'
+          }"
+        >
           {{ task.completed ? "Completed" : "Mark Complete" }}
         </span>
       </button>
@@ -76,7 +88,7 @@
           class="delete-button"
           (click)="deleteTask(task._id)"
         >
-          <mat-icon color="warn">delete</mat-icon>
+          <mat-icon class="delete-text">delete</mat-icon>
           <span class="delete-text">Delete</span>
         </button>
       </mat-menu>
@@ -105,7 +117,7 @@
   <button
     class="clear-button"
     mat-button
-    color="warn"
+    color="primary"
     (click)="openDeleteConfirmationDialog()"
     *ngIf="isWideScreen"
   >
