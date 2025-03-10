@@ -81,20 +81,19 @@ export class TaskFormComponent implements OnChanges {
   saveTask(taskForm: NgForm) {
     if (!this.title.trim()) return;
 
-    const updatedTask: Task = {
-      _id: this.taskToEdit ? this.taskToEdit._id : Date.now().toString(),
+    const isEditMode = !!this.taskToEdit;
+
+    const task: Task = {
+      _id: isEditMode ? this.taskToEdit!._id : Date.now().toString(),
       title: this.title,
       description: this.description,
-      completed: this.taskToEdit ? this.taskToEdit.completed : false,
-      createdAt: this.taskToEdit ? this.taskToEdit.createdAt : new Date(),
+      completed: isEditMode ? this.taskToEdit!.completed : false,
+      createdAt: isEditMode ? this.taskToEdit!.createdAt : new Date(),
       priority: this.priority,
       deadline: this.deadline || null,
     };
 
-    this.taskToEdit
-      ? this.taskUpdated.emit(updatedTask)
-      : this.taskAdded.emit(updatedTask);
-
+    this[isEditMode ? 'taskUpdated' : 'taskAdded'].emit(task);
     this.resetForm(taskForm);
   }
 
