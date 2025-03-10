@@ -1,15 +1,15 @@
-import { MatMenuModule } from '@angular/material/menu';
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { debounceTime, fromEvent, Subject, takeUntil } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Task } from '../models/task.model';
+import { TaskFormComponent } from '../task-form/task-form.component';
+import { TaskControlsComponent } from '../task-controls/task-controls.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { TaskService } from '../task.service';
 import { ShowFormService } from '../../../shared/services/show-form.service';
-import { TaskFormComponent } from '../task-form/task-form.component';
-import { FormsModule } from '@angular/forms';
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { TaskControlsComponent } from '../task-controls/task-controls.component';
 
-// Material Imports
+// Import Angular Material Modules
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -24,6 +24,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-task-list',
@@ -52,7 +53,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
 })
-export class TaskListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class TaskListComponent implements OnInit, OnDestroy {
   isWideScreen: boolean = window.innerWidth > 525;
   tasks: Task[] = [];
   filteredTasks: Task[] = [];
@@ -63,8 +64,7 @@ export class TaskListComponent implements OnInit, AfterViewInit, OnDestroy {
   pageSize: number = 6;
   showForm = true;
   isLoading = true;
-
-  private resizeListener = () => this.checkScreenSize();
+  private destroy$ = new Subject<void>();
 
   constructor(
     public taskService: TaskService,
@@ -75,36 +75,39 @@ export class TaskListComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.isLoading = true;
 
-    window.addEventListener('resize', this.resizeListener);
+    fromEvent(window, 'resize')
+      .pipe(debounceTime(150), takeUntil(this.destroy$))
+      .subscribe(() => this.checkScreenSize());
 
-    this.showFormService.showForm$.subscribe((value) => {
-      this.showForm = value;
-    });
+    this.showFormService.showForm$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
+        this.showForm = value;
+      });
 
-    this.taskService.tasks$.subscribe((tasks) => {
-      this.tasks = tasks.map((task) => ({
-        ...task,
-        createdAt: new Date(task.createdAt),
-      }));
+    this.taskService.tasks$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((tasks) => {
+        this.tasks = tasks.map((task) => ({
+          ...task,
+          createdAt: new Date(task.createdAt),
+        }));
 
-      this.filteredTasks = [...this.tasks];
-      this.filteredTasksOriginal = [...this.tasks];
-      this.calculateProgress();
+        this.filteredTasks = [...this.tasks];
+        this.filteredTasksOriginal = [...this.tasks];
+        this.calculateProgress();
 
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 1000);
-    });
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 1000);
+      });
 
     this.taskService.fetchTasks();
   }
 
-  ngAfterViewInit(): void {
-    setTimeout(() => this.calculateProgress(), 0);
-  }
-
   ngOnDestroy(): void {
-    window.removeEventListener('resize', this.resizeListener);
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   checkScreenSize(): void {
