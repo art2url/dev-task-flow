@@ -29,7 +29,7 @@ mat-divider {
     margin: 0 8px;
   }
 
-  @media (max-width: 768) {
+  @media (max-width: 768px) {
     margin: 0 4px;
   }
 }
@@ -118,10 +118,11 @@ mat-divider {
   flex-direction: column;
   height: 100%;
   padding: $spacing;
-  transition: box-shadow 0.3s;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
   box-shadow: $card-shadow;
 
   &:hover {
+    transform: translateY(-4px);
     box-shadow: $card-hover-shadow;
   }
 
