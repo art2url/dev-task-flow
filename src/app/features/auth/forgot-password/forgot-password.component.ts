@@ -55,7 +55,6 @@ export class ForgotPasswordComponent {
           this.errorMessage = 'User not found. Please check your email.';
           this.successMessage = '';
         },
-        complete: () => (this.loading = false),
       });
   }
 
