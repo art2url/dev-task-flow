@@ -55,7 +55,6 @@ export class RegisterComponent {
           this.loading = false;
           this.errorMessage = err.error.error;
         },
-        complete: () => (this.loading = false),
       });
   }
 
