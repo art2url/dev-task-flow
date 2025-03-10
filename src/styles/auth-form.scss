@@ -16,6 +16,11 @@
   padding: 24px;
   border-radius: 12px;
   box-shadow: $card-shadow;
+
+  @media (max-width: 420px) {
+    width: 90%;
+    padding: 16px;
+  }
 }
 
 // Form Inputs
