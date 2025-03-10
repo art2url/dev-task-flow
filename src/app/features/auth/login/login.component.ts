@@ -56,7 +56,6 @@ export class LoginComponent {
           this.loading = false;
           this.errorMessage = 'Password or email does not match.';
         },
-        complete: () => (this.loading = false),
       });
   }
 
