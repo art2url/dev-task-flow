@@ -11,6 +11,13 @@ mat-divider {
   border-top-color: $divider-dimmed;
 }
 
+.logo-link {
+  text-decoration: none;
+  color: $text-color-primary;
+  display: flex;
+  align-items: center;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
