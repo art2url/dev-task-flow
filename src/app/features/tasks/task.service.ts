@@ -23,12 +23,33 @@ export class TaskService {
     });
   }
 
+  private isTokenExpired(): boolean {
+    const token = localStorage.getItem('authToken');
+    if (!token) return true;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.exp * 1000 < Date.now();
+  }
+
+  private handleUnauthorized(): void {
+    localStorage.removeItem('authToken');
+    window.location.href = '/login';
+  }
+
   fetchTasks(): void {
+    if (this.isTokenExpired()) {
+      this.handleUnauthorized();
+      return;
+    }
+
     this.http
       .get<Task[]>(this.apiUrl, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (tasks) => this.tasksSubject.next(tasks),
-        error: (err) => console.error('Error fetching tasks:', err),
+        error: (err) => {
+          if (err.status === 401) this.handleUnauthorized();
+          console.error('Error fetching tasks:', err);
+        },
       });
   }
 
