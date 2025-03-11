@@ -1,5 +1,6 @@
 import { debounceTime, fromEvent, Subject, takeUntil } from 'rxjs';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Task } from '../models/task.model';
@@ -69,11 +70,17 @@ export class TaskListComponent implements OnInit, OnDestroy {
   constructor(
     public taskService: TaskService,
     private dialog: MatDialog,
-    public showFormService: ShowFormService
+    public showFormService: ShowFormService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
+
+    if (!localStorage.getItem('authToken') || this.isTokenExpired()) {
+      this.router.navigate(['/login']);
+      return;
+    }
 
     fromEvent(window, 'resize')
       .pipe(debounceTime(150), takeUntil(this.destroy$))
@@ -103,6 +110,14 @@ export class TaskListComponent implements OnInit, OnDestroy {
       });
 
     this.taskService.fetchTasks();
+  }
+
+  isTokenExpired(): boolean {
+    const token = localStorage.getItem('authToken');
+    if (!token) return true;
+
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.exp * 1000 < Date.now();
   }
 
   ngOnDestroy(): void {
