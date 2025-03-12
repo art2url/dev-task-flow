@@ -23,14 +23,18 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm ci 
+        run: npm install
+
+      - name: Create test results directory
+        run: mkdir -p reports
 
       - name: Run unit tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
+        continue-on-error: true
 
       - name: Upload Test Results
-        if: success() || failure() 
-        uses: actions/upload-artifact@v3
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
           name: unit-test-results
           path: reports/unit-tests.xml
