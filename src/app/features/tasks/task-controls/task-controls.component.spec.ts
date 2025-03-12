@@ -2,21 +2,15 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
-// Angular Material Modules
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-
-// Angular Modules
 import { CommonModule } from '@angular/common';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
-// Component under test
 import { TaskControlsComponent } from './task-controls.component';
-
-// Task model
 import { Task } from '../models/task.model';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   template: `<app-task-controls
@@ -56,11 +50,11 @@ describe('TaskControlsComponent via TestHost', () => {
     testHost = hostFixture.componentInstance;
     hostFixture.detectChanges();
 
-    const taskControlsDebugEl = hostFixture.debugElement.query(
+    const debugEl = hostFixture.debugElement.query(
       By.directive(TaskControlsComponent)
     );
-    expect(taskControlsDebugEl).toBeTruthy();
-    taskControlsComponent = taskControlsDebugEl.componentInstance;
+    expect(debugEl).toBeTruthy();
+    taskControlsComponent = debugEl.componentInstance;
   });
 
   it('should create the task controls component', () => {
@@ -150,7 +144,7 @@ describe('TaskControlsComponent via TestHost', () => {
 
   it('should sort tasks by date', () => {
     const date1 = new Date();
-    const date2 = new Date(date1.getTime() - 1000 * 60 * 60 * 24); // One day earlier
+    const date2 = new Date(date1.getTime() - 86400000);
 
     testHost.tasks = [
       {
@@ -206,8 +200,8 @@ describe('TaskControlsComponent via TestHost', () => {
   });
 
   it('should filter overdue tasks', () => {
-    const pastDate = new Date(Date.now() - 1000 * 60 * 60 * 24); // 1 day ago
-    const futureDate = new Date(Date.now() + 1000 * 60 * 60 * 24); // 1 day ahead
+    const pastDate = new Date(Date.now() - 86400000);
+    const futureDate = new Date(Date.now() + 86400000);
 
     testHost.tasks = [
       {

@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 
 import { LoginComponent } from './login.component';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -16,7 +17,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 
-// Stub directive for routerLink to prevent routing errors in tests
 @Directive({
   selector: '[routerLink]',
 })
@@ -24,21 +24,18 @@ export class RouterLinkStubDirective {
   @Input() routerLink: any;
 }
 
-// Module to provide the RouterLinkStubDirective
 @NgModule({
   declarations: [RouterLinkStubDirective],
   exports: [RouterLinkStubDirective],
 })
 export class RouterLinkStubModule {}
 
-// Stub component for Angular Material Spinner
 @Component({
   selector: 'mat-spinner',
   template: '<div></div>',
 })
 export class MatSpinnerStub {}
 
-// Test Host Component to wrap LoginComponent
 @Component({
   template: `<app-login></app-login>`,
 })
@@ -50,7 +47,6 @@ describe('LoginComponent via TestHost', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   let routerSpy: jasmine.SpyObj<Router>;
 
-  // Helper to simulate input events
   function updateInput(selector: string, value: string) {
     const inputEl: HTMLInputElement =
       hostFixture.nativeElement.querySelector(selector);
@@ -59,7 +55,6 @@ describe('LoginComponent via TestHost', () => {
   }
 
   beforeEach(async () => {
-    // Create spies
     httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
     httpClientSpy.post.and.returnValue(of({ token: 'fake-token' }));
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
@@ -67,11 +62,11 @@ describe('LoginComponent via TestHost', () => {
     await TestBed.configureTestingModule({
       declarations: [TestHostComponent, MatSpinnerStub],
       imports: [
-        LoginComponent, // Import the standalone component
+        LoginComponent,
         FormsModule,
         CommonModule,
         NoopAnimationsModule,
-        RouterLinkStubModule, // Replace real RouterModule
+        RouterLinkStubModule,
         MatCardModule,
         MatFormFieldModule,
         MatInputModule,
@@ -106,7 +101,6 @@ describe('LoginComponent via TestHost', () => {
     hostFixture = TestBed.createComponent(TestHostComponent);
     hostFixture.detectChanges();
 
-    // Query the host for the LoginComponent instance
     const loginDebugEl = hostFixture.debugElement.query(
       By.directive(LoginComponent)
     );

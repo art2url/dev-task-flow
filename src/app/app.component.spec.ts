@@ -29,26 +29,21 @@ describe('AppComponent', () => {
 
   it('should apply the azure-blue theme if stored in localStorage', () => {
     spyOn(localStorage, 'getItem').and.returnValue('azure-blue');
-
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-
     expect(document.body.classList.contains('azure-blue-theme')).toBeTrue();
   });
 
   it('should not apply the azure-blue theme if it is not stored in localStorage', () => {
     spyOn(localStorage, 'getItem').and.returnValue(null);
-
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-
     expect(document.body.classList.contains('azure-blue-theme')).toBeFalse();
   });
 
   it('should render the header, main content, and footer', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('app-header')).not.toBeNull();
     expect(compiled.querySelector('router-outlet')).not.toBeNull();

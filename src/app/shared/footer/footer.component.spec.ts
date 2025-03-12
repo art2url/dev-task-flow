@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FooterComponent } from './footer.component';
+
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -50,7 +51,7 @@ describe('FooterComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const icons = compiled.querySelectorAll('.footer-icon');
     expect(icons.length).toBe(2);
-    expect(icons[0].textContent?.trim()).toBe('code'); // GitHub icon
-    expect(icons[1].textContent?.trim()).toBe('business_center'); // LinkedIn icon
+    expect(icons[0].textContent?.trim()).toBe('code');
+    expect(icons[1].textContent?.trim()).toBe('business_center');
   });
 });

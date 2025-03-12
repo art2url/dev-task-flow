@@ -150,7 +150,6 @@ describe('TaskService', () => {
 
       service.updateTask(updatedTask);
 
-      // updateTask calls fetchTasks on success.
       expect(httpClientSpy.get).toHaveBeenCalled();
       service.tasks$.subscribe((tasks) => {
         expect(tasks).toEqual([updatedTask]);
@@ -212,7 +211,6 @@ describe('TaskService', () => {
       httpClientSpy.delete.and.returnValue(throwError(() => ({ status: 500 })));
 
       service.deleteTask('1');
-
       expect((service as any).tasksSubject.value).toEqual(originalTasks);
     });
   });

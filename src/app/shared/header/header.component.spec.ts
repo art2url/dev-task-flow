@@ -3,6 +3,7 @@ import { HeaderComponent } from './header.component';
 import { ShowFormService } from '../services/show-form.service';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -18,11 +19,8 @@ describe('HeaderComponent', () => {
     showFormServiceSpy = jasmine.createSpyObj(
       'ShowFormService',
       ['toggleForm'],
-      {
-        showForm$: of(true), // Mock initial value
-      }
+      { showForm$: of(true) }
     );
-
     routerSpy = jasmine.createSpyObj('Router', ['navigate'], { url: '/' });
 
     await TestBed.configureTestingModule({
@@ -92,9 +90,7 @@ describe('HeaderComponent', () => {
   it('should toggle theme correctly', () => {
     document.documentElement.classList.add('azure-blue-theme');
     localStorage.setItem('theme', 'azure-blue-theme');
-
     component.toggleTheme();
-
     expect(
       document.documentElement.classList.contains('azure-blue-theme')
     ).toBeFalse();
@@ -104,9 +100,7 @@ describe('HeaderComponent', () => {
   it('should toggle theme back to azure-blue-theme', () => {
     document.documentElement.classList.remove('azure-blue-theme');
     localStorage.setItem('theme', 'default-theme');
-
     component.toggleTheme();
-
     expect(
       document.documentElement.classList.contains('azure-blue-theme')
     ).toBeTrue();
@@ -116,9 +110,7 @@ describe('HeaderComponent', () => {
   it('should update isSmallScreen on window resize', () => {
     component.isSmallScreen = false;
     spyOnProperty(window, 'innerWidth').and.returnValue(600);
-
     window.dispatchEvent(new Event('resize'));
-
     expect(component.isSmallScreen).toBeTrue();
   });
 });

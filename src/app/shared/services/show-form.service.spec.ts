@@ -24,32 +24,26 @@ describe('ShowFormService', () => {
 
   it('should toggle showForm$ value when toggleForm() is called', (done) => {
     const emittedValues: boolean[] = [];
-
     service.showForm$.subscribe((value) => {
       emittedValues.push(value);
-
       if (emittedValues.length === 2) {
-        expect(emittedValues).toEqual([true, false]); // First value true, then false after toggle
+        expect(emittedValues).toEqual([true, false]);
         done();
       }
     });
-
-    service.toggleForm(); // This should emit `false`
+    service.toggleForm();
   });
 
   it('should toggle showForm$ back to true when toggleForm() is called twice', (done) => {
     const emittedValues: boolean[] = [];
-
     service.showForm$.subscribe((value) => {
       emittedValues.push(value);
-
       if (emittedValues.length === 3) {
-        expect(emittedValues).toEqual([true, false, true]); // First true, then false, then true
+        expect(emittedValues).toEqual([true, false, true]);
         done();
       }
     });
-
-    service.toggleForm(); // Emits `false`
-    service.toggleForm(); // Emits `true`
+    service.toggleForm();
+    service.toggleForm();
   });
 });

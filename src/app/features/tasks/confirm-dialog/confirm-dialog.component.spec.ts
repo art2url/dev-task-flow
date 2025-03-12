@@ -1,8 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+
 import { ConfirmDialogComponent } from './confirm-dialog.component';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 
 describe('ConfirmDialogComponent', () => {
   let component: ConfirmDialogComponent;
@@ -13,7 +16,7 @@ describe('ConfirmDialogComponent', () => {
     dialogRefSpy = jasmine.createSpyObj('MatDialogRef', ['close']);
 
     await TestBed.configureTestingModule({
-      imports: [ConfirmDialogComponent, MatDialogModule, MatButtonModule],
+      imports: [ConfirmDialogComponent, MatDialogModule],
       providers: [
         { provide: MatDialogRef, useValue: dialogRefSpy },
         {
@@ -33,9 +36,9 @@ describe('ConfirmDialogComponent', () => {
   });
 
   it('should display title and message', () => {
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('h2').textContent).toContain('Confirm');
-    expect(compiled.querySelector('mat-dialog-content').textContent).toContain(
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h2')?.textContent).toContain('Confirm');
+    expect(compiled.querySelector('mat-dialog-content')?.textContent).toContain(
       'Are you sure?'
     );
   });
