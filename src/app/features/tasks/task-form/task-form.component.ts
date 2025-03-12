@@ -72,6 +72,7 @@ export class TaskFormComponent implements OnChanges {
       this.showForm = true;
       this.title = this.taskToEdit.title;
       this.description = this.taskToEdit.description || '';
+      this.priority = this.taskToEdit.priority;
       this.deadline = this.taskToEdit.deadline
         ? new Date(this.taskToEdit.deadline)
         : null;
