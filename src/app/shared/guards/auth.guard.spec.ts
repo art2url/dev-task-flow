@@ -1,32 +1,34 @@
+// auth.guard.spec.ts
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
-  let routerMock: any;
+  let router: Router;
 
   beforeEach(() => {
-    routerMock = { navigate: jasmine.createSpy('navigate') };
-
     TestBed.configureTestingModule({
-      providers: [AuthGuard, { provide: Router, useValue: routerMock }],
+      providers: [
+        AuthGuard,
+        {
+          provide: Router,
+          useValue: { navigate: jasmine.createSpy('navigate') },
+        },
+      ],
     });
-
     guard = TestBed.inject(AuthGuard);
-  });
-
-  afterEach(() => {
-    localStorage.clear();
+    router = TestBed.inject(Router);
   });
 
   it('should allow navigation if token exists', () => {
-    localStorage.setItem('authToken', 'mock-token');
+    spyOn(localStorage, 'getItem').and.returnValue('some-valid-token');
     expect(guard.canActivate()).toBeTrue();
   });
 
-  it('should redirect to /login if no token is found', () => {
+  it('should navigate to login and return false if token is missing', () => {
+    spyOn(localStorage, 'getItem').and.returnValue(null);
     expect(guard.canActivate()).toBeFalse();
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/login']);
+    expect(router.navigate).toHaveBeenCalledWith(['/login']);
   });
 });
