@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Task } from './models/task.model';
 
@@ -25,10 +25,14 @@ export class TaskService {
 
   private isTokenExpired(): boolean {
     const token = localStorage.getItem('authToken');
-    if (!token) return true;
+    if (!token || token.split('.').length !== 3) return true;
 
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.exp * 1000 < Date.now();
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp * 1000 < Date.now();
+    } catch (error) {
+      return true;
+    }
   }
 
   private handleUnauthorized(): void {
@@ -47,14 +51,19 @@ export class TaskService {
       .subscribe({
         next: (tasks) => this.tasksSubject.next(tasks),
         error: (err) => {
-          if (err.status === 401) this.handleUnauthorized();
+          if (err.status === 401) {
+            this.handleUnauthorized();
+          }
           console.error('Error fetching tasks:', err);
         },
       });
   }
 
-  togglePin(task: Task): void {
-    const updatedTask = { ...task, pinned: !task.pinned };
+  private toggleTaskProperty(
+    task: Task,
+    property: 'pinned' | 'completed'
+  ): void {
+    const updatedTask = { ...task, [property]: !task[property] };
     this.updateLocalTask(updatedTask);
 
     this.http
@@ -63,26 +72,18 @@ export class TaskService {
       })
       .subscribe({
         error: (err) => {
-          console.error('Error toggling pin:', err);
+          console.error(`Error toggling ${property}:`, err);
           this.fetchTasks();
         },
       });
   }
 
-  toggleTaskCompletion(task: Task): void {
-    const updatedTask = { ...task, completed: !task.completed };
-    this.updateLocalTask(updatedTask);
+  togglePin(task: Task): void {
+    this.toggleTaskProperty(task, 'pinned');
+  }
 
-    this.http
-      .put(`${this.apiUrl}/${task._id}`, updatedTask, {
-        headers: this.getAuthHeaders(),
-      })
-      .subscribe({
-        error: (err) => {
-          console.error('Error toggling completion:', err);
-          this.fetchTasks();
-        },
-      });
+  toggleTaskCompletion(task: Task): void {
+    this.toggleTaskProperty(task, 'completed');
   }
 
   private updateLocalTask(updatedTask: Task): void {
@@ -97,8 +98,7 @@ export class TaskService {
       .post<Task>(this.apiUrl, task, { headers: this.getAuthHeaders() })
       .subscribe({
         next: (savedTask) => {
-          const updatedTasks = [...this.tasksSubject.value, savedTask];
-          this.tasksSubject.next(updatedTasks);
+          this.tasksSubject.next([...this.tasksSubject.value, savedTask]);
         },
         error: (err) => {
           console.error('Error adding task:', err);
