@@ -86,7 +86,10 @@
               "@angular/material/prebuilt-themes/cyan-orange.css",
               "src/styles.scss"
             ],
-            "scripts": ["src/assets/js/theme-loader.js"]
+            "scripts": [
+              "src/assets/js/theme-loader.js"
+            ],
+            "karmaConfig": "karma.conf.js"
           }
         }
       }
