@@ -1,4 +1,4 @@
-name: Angular Unit Tests
+name: DevTaskFlow Unit Tests
 
 on:
   push:

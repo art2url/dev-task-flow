@@ -1,4 +1,6 @@
 @use "@angular/material" as mat;
+@use "_variables.scss" as *;
+@use "auth-form.scss" as *;
 
 @include mat.core();
 
@@ -21,8 +23,6 @@ $azureBlueTheme: mat.define-theme(
     ),
   )
 );
-
-@import "./styles/_variables.scss";
 
 :root {
   @include mat.all-component-colors($defaultTheme);
@@ -63,5 +63,3 @@ body {
 .main-content {
   flex: 1;
 }
-
-@import "./styles/auth-form.scss";

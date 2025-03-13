@@ -1,5 +1,5 @@
 @use "sass:math";
-@import "variables";
+@use "variables" as *;
 
 .container {
   margin: 0 16px;
