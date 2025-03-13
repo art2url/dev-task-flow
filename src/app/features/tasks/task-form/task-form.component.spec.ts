@@ -18,6 +18,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
+  standalone: true,
+  imports: [TaskFormComponent],
   template: `<app-task-form
     (taskAdded)="onTaskAdded($event)"
     (taskUpdated)="onTaskUpdated($event)"
@@ -43,8 +45,8 @@ describe('TaskFormComponent via TestHost', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TestHostComponent],
       imports: [
+        TestHostComponent,
         TaskFormComponent,
         FormsModule,
         CommonModule,

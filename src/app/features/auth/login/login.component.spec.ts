@@ -25,7 +25,7 @@ export class RouterLinkStubDirective {
 }
 
 @NgModule({
-  declarations: [RouterLinkStubDirective],
+  imports: [RouterLinkStubDirective],
   exports: [RouterLinkStubDirective],
 })
 export class RouterLinkStubModule {}
@@ -37,6 +37,8 @@ export class RouterLinkStubModule {}
 export class MatSpinnerStub {}
 
 @Component({
+  standalone: true,
+  imports: [LoginComponent],
   template: `<app-login></app-login>`,
 })
 class TestHostComponent {}
@@ -60,12 +62,9 @@ describe('LoginComponent via TestHost', () => {
     routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
     await TestBed.configureTestingModule({
-      declarations: [TestHostComponent, MatSpinnerStub],
       imports: [
-        LoginComponent,
+        TestHostComponent,
         FormsModule,
-        CommonModule,
-        NoopAnimationsModule,
         RouterLinkStubModule,
         MatCardModule,
         MatFormFieldModule,
@@ -83,9 +82,8 @@ describe('LoginComponent via TestHost', () => {
       .overrideComponent(LoginComponent, {
         set: {
           imports: [
-            CommonModule,
             FormsModule,
-            NoopAnimationsModule,
+            CommonModule,
             RouterLinkStubModule,
             MatCardModule,
             MatFormFieldModule,

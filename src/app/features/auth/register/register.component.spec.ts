@@ -28,7 +28,7 @@ export class RouterLinkStubDirective {
 }
 
 @NgModule({
-  declarations: [RouterLinkStubDirective],
+  imports: [RouterLinkStubDirective],
   exports: [RouterLinkStubDirective],
 })
 export class RouterLinkStubModule {}

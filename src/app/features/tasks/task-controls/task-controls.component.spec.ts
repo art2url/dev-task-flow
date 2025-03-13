@@ -13,6 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
+  standalone: true,
+  imports: [TaskControlsComponent],
   template: `<app-task-controls
     [tasks]="tasks"
     (filteredTasksChange)="onFilteredTasks($event)"
@@ -34,8 +36,8 @@ describe('TaskControlsComponent via TestHost', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TestHostComponent],
       imports: [
+        TestHostComponent,
         TaskControlsComponent,
         FormsModule,
         CommonModule,
