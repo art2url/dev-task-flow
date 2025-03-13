@@ -7,7 +7,7 @@ module.exports = function (config) {
       require("karma-chrome-launcher"),
       require("karma-jasmine-html-reporter"),
       require("karma-coverage"),
-      require("karma-junit-reporter"),
+      require("@angular-devkit/build-angular/plugins/karma"),
     ],
     client: {
       clearContext: false,
@@ -17,18 +17,16 @@ module.exports = function (config) {
       subdir: ".",
       reporters: [{ type: "html" }, { type: "text-summary" }],
     },
-    reporters: ["progress", "kjhtml", "junit"],
-    junitReporter: {
-      outputDir: "reports",
-      outputFile: "unit-tests.xml",
-      useBrowserName: false,
-    },
+    reporters: ["progress", "kjhtml"],
     port: 9876,
     colors: true,
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
     autoWatch: true,
     browsers: ["ChromeHeadless"],
     singleRun: false,
     restartOnFileChange: true,
+    mime: {
+      "text/javascript": ["js"],
+    },
   });
 };
